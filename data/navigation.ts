@@ -23,3 +23,21 @@ export const utilityNav: NavLink[] = [
   { label: "Articles", href: "/blog" },
   { label: "FAQs", href: "/faqs" },
 ];
+
+export const menuGroups: NavLink[][] = [
+  [
+    { label: "New Release", href: "/shop?sort=new" },
+    { label: "Sale", href: "/shop?filter=sale" },
+  ],
+  [
+    { label: "Collections", href: "/collections" },
+    { label: "Bundles", href: "/shop?type=bundle" },
+  ],
+  [
+    { label: "Journals", href: "/collections/journals" },
+    { label: "Planners", href: "/collections/planners" },
+    { label: "Tapes", href: "/collections/washi-tapes" },
+    { label: "Calendars", href: "/collections/calendars" },
+  ],
+  [{ label: "FAQs", href: "/faqs" }],
+];

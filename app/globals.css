@@ -93,6 +93,7 @@
   --shadow-badge: 0 2px 5px 0 rgb(0 0 0 / 0.11);
   --shadow-pill: 0 4px 5px 0 rgb(0 0 0 / 0.1);
   --shadow-card: 0 8px 13px 0 rgb(0 0 0 / 0.1);
+  --drop-shadow-menu: 18px 0 25px rgb(41 37 34 / 0.12);
 
   /* ===== Layout ===== */
   --container-site: 1512px;

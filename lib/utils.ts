@@ -12,6 +12,7 @@ const twMerge = extendTailwindMerge({
       ],
       tracking: ["tight-1", "tight-2", "tight-3", "wide-1", "wide-2"],
       shadow: ["hero", "badge", "pill", "card"],
+      "drop-shadow": ["menu"],
     },
   },
 });

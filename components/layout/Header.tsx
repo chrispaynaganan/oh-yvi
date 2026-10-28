@@ -7,6 +7,7 @@ import {
   utilityNav,
   type NavLink,
 } from "@/data/navigation";
+import MenuButton from "@/components/layout/MenuButton";
 
 function NavChip({ label, href }: NavLink) {
   return (
@@ -58,17 +59,7 @@ export default function Header() {
     <header className="mx-auto w-full max-w-site px-4 md:px-15">
       {/* Row 1: menu · logo · links + icons */}
       <div className="mt-5 grid grid-cols-[1fr_auto_1fr] items-center">
-        <button
-          type="button"
-          aria-label="Open menu"
-          className="relative size-6.25 justify-self-start"
-        >
-          <span className="absolute inset-[29.17%_16.67%]">
-            <span className="absolute inset-[-8%_-5%]">
-              <Image src="/icons/menu.svg" alt="" fill unoptimized />
-            </span>
-          </span>
-        </button>
+        <MenuButton/>
 
         <Link
           href="/"

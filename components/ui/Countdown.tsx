@@ -21,12 +21,13 @@ const getServerNow = () => null;
 export default function Countdown({ endsAt }: { endsAt: string }) {
   const now = useSyncExternalStore(subscribe, getNow, getServerNow);
   const end = Math.floor(new Date(endsAt).getTime() / 1000);
-  let left = now === null ? 0 : Math.max(0, end - now);
+    const left = now === null ? 0 : Math.max(0, end - now);
 
-  const parts = UNITS.map(([label, size]) => {
-    const value = Math.floor(left / size);
-    left -= value * size;
-    return { label, value };
+  // Each unit = what's left within the next-larger unit
+  // (days have no larger unit, so they use the full total).
+  const parts = UNITS.map(([label, size], i) => {
+    const within = i === 0 ? Infinity : UNITS[i - 1][1];
+    return { label, value: Math.floor((left % within) / size) };
   });
 
   return (
