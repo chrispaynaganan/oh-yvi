@@ -28,7 +28,9 @@ export default function CategoryGrid() {
     <section className="mx-auto max-w-site px-15 pt-16.75">
       <SectionHeader {...categoriesSection} />
       <div className="mt-21.75 grid grid-cols-4 gap-x-5 gap-y-12.25">
-        {collections.map((collection) => (
+                {collections
+          .filter((collection) => collection.kind === "category")
+          .map((collection) => (
           <CategoryCard key={collection.id} {...collection} />
         ))}
       </div>

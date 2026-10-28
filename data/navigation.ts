@@ -2,7 +2,7 @@ export type NavLink = { label: string; href: string };
 
 export const shopNav: NavLink[] = [
   { label: "All", href: "/shop" },
-  { label: "New Arrivals", href: "/shop?sort=new" },
+  { label: "New Release", href: "/shop?sort=new" },
   { label: "Sale", href: "/shop?filter=sale" },
 ];
 

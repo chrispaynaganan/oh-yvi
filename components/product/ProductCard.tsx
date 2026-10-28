@@ -3,31 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import CardActions from "@/components/product/CardActions";
 import { cn, formatPeso } from "@/lib/utils";
 import type { Product } from "@/types";
-
-function CardIconButton({
-  label,
-  icon,
-  disabled = false,
-}: {
-  label: string;
-  icon: string;
-  disabled?: boolean;
-}) {
-  return (
-    <button
-      type="button"
-      aria-label={label}
-      disabled={disabled}
-      className="relative size-6.75 transition-transform hover:scale-110 disabled:opacity-50 disabled:hover:scale-100"
-    >
-      <span className="absolute inset-[-29.63%_-44.44%_-59.26%_-44.44%]">
-        <Image src={icon} alt="" fill unoptimized />
-      </span>
-    </button>
-  );
-}
 
 export default function ProductCard({ product }: { product: Product }) {
   const [active, setActive] = useState(0);
@@ -64,15 +42,7 @@ export default function ProductCard({ product }: { product: Product }) {
           </span>
         )}
 
-        <div className="absolute top-5 right-4.75 flex gap-2.5">
-          <CardIconButton label={`Add ${name} to wishlist`} icon="/icons/card-heart.svg" />
-          <CardIconButton
-            label={`Quick add ${name} to cart`}
-            icon="/icons/card-bag.svg"
-            disabled={isOut}
-          />
-          <CardIconButton label={`Share ${name}`} icon="/icons/card-share.svg" />
-        </div>
+        <CardActions name={name} disableAdd={isOut} className="absolute top-5 right-4.75" />
 
         {images.length > 1 && (
           <div className="absolute bottom-4.25 left-1/2 flex -translate-x-1/2 gap-1.5">

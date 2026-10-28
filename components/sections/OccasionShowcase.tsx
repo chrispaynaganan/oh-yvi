@@ -1,7 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import SectionHeader from "@/components/ui/SectionHeader";
-import { occasions, occasionsSection, type Occasion } from "@/data/homepage";
+import { collections } from "@/data/collections";
+import { occasionsSection } from "@/data/homepage";
+import type { Collection } from "@/types";
+
+const occasions = collections.filter((collection) => collection.kind === "occasion");
 
 function LearnMore() {
   return (
@@ -21,13 +25,12 @@ function LearnMore() {
   );
 }
 
-function OccasionCard({ name, description, image, href }: Occasion) {
+function OccasionCard({ slug, name, description, image }: Collection) {
   return (
     <Link
-      href={href}
+      href={`/collections/${slug}`}
       className="occasion flex h-63.25 min-w-0 grow-3 basis-0 flex-col gap-2 rounded-xl border border-line-soft px-2.5 py-3 transition-[flex-grow,padding,background-color,border-color,box-shadow] duration-500 ease-out expanded:grow-13 expanded:flex-row expanded:items-center expanded:gap-4 expanded:border-line-rose expanded:bg-white expanded:p-4 expanded:shadow-card"
     >
-      {/* Image: short strip on top → tall left half when expanded */}
       <div className="relative h-25 w-full shrink-0 overflow-hidden rounded-xs bg-placeholder expanded:h-full expanded:w-auto expanded:flex-1">
         <Image
           src={image}
@@ -38,7 +41,6 @@ function OccasionCard({ name, description, image, href }: Occasion) {
         />
       </div>
 
-      {/* Text: fills the card height when compact, centered beside the image when expanded */}
       <div className="flex min-w-0 flex-1 flex-col items-start justify-between expanded:justify-start expanded:gap-9">
         <div className="flex w-full flex-col gap-2.5">
           <h3 className="font-serif text-xl tracking-tight-2 whitespace-nowrap text-brand">
@@ -60,7 +62,7 @@ export default function OccasionShowcase() {
       <SectionHeader {...occasionsSection} />
       <div className="mt-24.25 flex gap-4">
         {occasions.map((occasion) => (
-          <OccasionCard key={occasion.href} {...occasion} />
+          <OccasionCard key={occasion.id} {...occasion} />
         ))}
       </div>
     </section>

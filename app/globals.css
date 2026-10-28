@@ -28,6 +28,9 @@
   --color-disabled: #d5d5d5;
   --color-placeholder: #d9d9d9;
   --color-scrim: #202020;
+  --color-accent: #735646;
+  --color-tan: #b8a194;
+  --color-success: #5ea321;
 
   /* ===== Typography =====
      Figma uses "line height: normal", so the defaults are reset to match. */
@@ -47,6 +50,7 @@
   --text-21: 21px;
   --text-25: 25px;
   --text-50: 50px;
+  --text-38: 38px;
 
   /* Named styles: size + line height + letter spacing in one class */
   --text-display: 80px;
@@ -72,6 +76,10 @@
   --text-feature: 24px;
   --text-feature--line-height: normal;
   --text-feature--letter-spacing: -1.68px;
+
+  --text-collection: 68px;
+  --text-collection--line-height: normal;
+  --text-collection--letter-spacing: -3.06px;
 
   /* Letter spacing */
   --tracking-tight-1: -0.5px;

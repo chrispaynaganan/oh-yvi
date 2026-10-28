@@ -1,5 +1,6 @@
 import AnnouncementBar from "@/components/layout/AnnouncementBar";
 import Header from "@/components/layout/Header";
+import Newsletter from "@/components/sections/Newsletter";
 
 export default function StoreLayout({
   children,
@@ -9,6 +10,7 @@ export default function StoreLayout({
       <AnnouncementBar />
       <Header />
       {children}
+      <Newsletter />
     </>
   );
 }

@@ -7,7 +7,7 @@ export default function Hero() {
   const { avatars, stat, caption } = hero.socialProof;
 
   return (
-    <section className="overflow-hidden bg-surface-hero">
+        <section className="-mt-px overflow-hidden bg-surface-hero">
       <div className="relative mx-auto h-184.25 max-w-site px-15 pt-42.25">
         <div className="relative z-10 w-139.25">
           <h1 className="font-serif text-display text-black">{hero.title}</h1>

@@ -4,7 +4,7 @@ import "./globals.css";
 
 const gelasio = Gelasio({
   subsets: ["latin"],
-  weight: ["400"],
+  weight: ["400","700"],
   variable: "--font-gelasio",
   display: "swap",
 });

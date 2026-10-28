@@ -56,7 +56,8 @@ function Divider() {
 
 export default function Header() {
   return (
-    <header className="mx-auto w-full max-w-site px-4 md:px-15">
+        <header className="border-b border-line-soft">
+      <div className="mx-auto w-full max-w-site px-4 md:px-15">
       {/* Row 1: menu · logo · links + icons */}
       <div className="mt-5 grid grid-cols-[1fr_auto_1fr] items-center">
         <MenuButton/>
@@ -128,6 +129,7 @@ export default function Header() {
           {categoryNav.map((link) => <NavChip key={link.href} {...link} />)}
         </nav>
       </div>
+    </div>
     </header>
   );
 }

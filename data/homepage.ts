@@ -76,51 +76,6 @@ export const occasionsSection = {
   cta: { label: "View All Collections", href: "/collections" },
 };
 
-export type Occasion = {
-  name: string;
-  description: string;
-  image: string;
-  href: string;
-};
-
-export const occasions: Occasion[] = [
-  {
-    name: "For Voice Artists",
-  description:
-    "Detailed scripts, comprehensive session notes, and a thoughtful structure are essential for effective work behind the microphone. These elements not only enhance clarity but also ensure a smooth flow during recordings, allowing for a more engaging experience for both the speaker and the audience.",
-  image: "/images/occasions/voice-artists.png",
-  href: "/collections/for-voice-artists",
-  },
-  {
-    name: "For Designers",
-    description:
-      "A tactile edit for sketches, concepts, feedback, and bright new directions.",
-    image: "/images/occasions/designers.png",
-    href: "/collections/for-designers",
-  },
-  {
-    name: "For Dads",
-    description:
-      "Useful paper goods for plans, projects, and everyday things worth remembering.",
-    image: "/images/occasions/dads.png",
-    href: "/collections/for-dads",
-  },
-  {
-    name: "For Moms",
-    description:
-      "Beautiful companions for full days, family plans, and moments of her own.",
-    image: "/images/occasions/moms.png",
-    href: "/collections/for-moms",
-  },
-  {
-    name: "For Partners",
-    description:
-      "Thoughtful sets for shared plans, small notes, and celebrating your favorite person.",
-    image: "/images/occasions/partners.png",
-    href: "/collections/for-partners",
-  },
-];
-
 export const saleBanner = {
   eyebrow: "a limited-time treat",
   title: "A Little Something for\nyour Stationery Stash",
