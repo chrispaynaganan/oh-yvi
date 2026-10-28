@@ -6,7 +6,7 @@ export default function AnnouncementBar() {
     <div className="flex justify-center px-4 pt-3.75">
       <div className="flex w-142 max-w-full items-center justify-center gap-7 rounded-md bg-brand px-4 py-2">
         <p className="truncate font-mono text-10 font-bold text-white">
-          Complimentary delivery on orders over ₱1,500
+            Complimentary delivery on orders over ₱2,500
         </p>
         <Link
           href="/shop"

@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const collection = getCollection(slug);
   if (!collection) return {};
   return {
-    title: `${collection.name} — Oh Yvi`,
+    title: `${collection.name} — Oh, Yvi!`,
     description: collection.description,
   };
 }
