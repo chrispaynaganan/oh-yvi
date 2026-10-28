@@ -31,6 +31,9 @@
   --color-accent: #735646;
   --color-tan: #b8a194;
   --color-success: #5ea321;
+  --color-promo: #cd492f;
+  --color-star: #a68a6d;
+  --color-star-empty: #e8e5e3;
 
   /* ===== Typography =====
      Figma uses "line height: normal", so the defaults are reset to match. */
@@ -51,6 +54,13 @@
   --text-25: 25px;
   --text-50: 50px;
   --text-38: 38px;
+  --text-15: 15px;
+  --text-17: 17px;
+  --text-28: 28px;
+
+  --text-product: 52px;
+  --text-product--line-height: normal;
+  --text-product--letter-spacing: -1.56px;
 
   /* Named styles: size + line height + letter spacing in one class */
   --text-display: 80px;
@@ -95,12 +105,14 @@
   --radius-lg: 16px;
   --radius-xl: 20px;
   --radius-2xl: 24px;
+  --radius-3xl: 36px;
 
   /* ===== Shadows ===== */
   --shadow-hero: 6px 6px 25px 0 rgb(0 0 0 / 0.15);
   --shadow-badge: 0 2px 5px 0 rgb(0 0 0 / 0.11);
   --shadow-pill: 0 4px 5px 0 rgb(0 0 0 / 0.1);
   --shadow-card: 0 8px 13px 0 rgb(0 0 0 / 0.1);
+  --shadow-badge-lg: 0 6px 7.5px 0 rgb(0 0 0 / 0.1);
   --drop-shadow-menu: 18px 0 25px rgb(41 37 34 / 0.12);
 
   /* ===== Layout ===== */

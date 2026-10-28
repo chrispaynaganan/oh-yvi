@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
+type Action = "wishlist" | "add" | "share";
+
 function CardIconButton({
   label,
   icon,
@@ -26,20 +28,32 @@ function CardIconButton({
 
 type CardActionsProps = {
   name: string;
+  actions?: Action[];
   disableAdd?: boolean;
   className?: string;
 };
 
-export default function CardActions({ name, disableAdd = false, className }: CardActionsProps) {
+export default function CardActions({
+  name,
+  actions = ["wishlist", "add", "share"],
+  disableAdd = false,
+  className,
+}: CardActionsProps) {
   return (
     <div className={cn("flex gap-2.5", className)}>
-      <CardIconButton label={`Add ${name} to wishlist`} icon="/icons/card-heart.svg" />
-      <CardIconButton
-        label={`Quick add ${name} to cart`}
-        icon="/icons/card-bag.svg"
-        disabled={disableAdd}
-      />
-      <CardIconButton label={`Share ${name}`} icon="/icons/card-share.svg" />
+      {actions.includes("wishlist") && (
+        <CardIconButton label={`Add ${name} to wishlist`} icon="/icons/card-heart.svg" />
+      )}
+      {actions.includes("add") && (
+        <CardIconButton
+          label={`Quick add ${name} to cart`}
+          icon="/icons/card-bag.svg"
+          disabled={disableAdd}
+        />
+      )}
+      {actions.includes("share") && (
+        <CardIconButton label={`Share ${name}`} icon="/icons/card-share.svg" />
+      )}
     </div>
   );
 }

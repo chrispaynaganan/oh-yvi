@@ -9,7 +9,7 @@ export default function ProductShowcase() {
       <div className="mx-auto max-w-site px-15 pt-19 pb-20.5">
         <SectionHeader {...productsSection} />
         <div className="mt-23.25">
-          <ProductGrid products={products} />
+          <ProductGrid products={products.slice(0, 4)} />
         </div>
       </div>
     </section>

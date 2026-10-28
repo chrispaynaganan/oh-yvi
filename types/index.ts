@@ -14,6 +14,17 @@ export type Product = {
   badge?: string;
   /** Button text before the price, e.g. "Get notepad" → "Get notepad (₱175)" */
   buttonLabel: string;
+    /** Full text on the product page (cards use `description`) */
+  longDescription?: string;
+  specs?: string[];
+  details?: { title: string; body: string }[];
+  /** "Usually Bought With" products */
+  boughtWithSlugs?: string[];
+  bundleIds?: string[];
+  /** ISO date; shows the red "promo ends in" timer */
+  promoEndsAt?: string;
+  /** Most a customer can pick in the quantity stepper */
+  stock?: number;
 };
 
 export type CollectionKind = "category" | "occasion";

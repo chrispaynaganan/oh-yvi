@@ -7,8 +7,10 @@ export default function StoreLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <>
-      <AnnouncementBar />
-      <Header />
+      <div className="sticky top-0 z-40 bg-white">
+        <AnnouncementBar />
+        <Header />
+      </div>
       {children}
       <Newsletter />
     </>
