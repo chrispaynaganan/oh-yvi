@@ -66,3 +66,88 @@ export const productsSection = {
     "The little essentials that make everyday planning feel a bit more enjoyable.",
   cta: { label: "View All Products", href: "/shop" },
 };
+
+export const occasionsSection = {
+  title: "Something for Everyone",
+  intro:
+    "Little thoughtful things for the people, passions, and moments that make life theirs.",
+  aside:
+    "The little essentials that make everyday planning feel a bit more enjoyable.",
+  cta: { label: "View All Collections", href: "/collections" },
+};
+
+export type Occasion = {
+  name: string;
+  description: string;
+  image: string;
+  href: string;
+};
+
+export const featuredOccasion: Occasion = {
+  name: "For Voice Artists",
+  description:
+    "Detailed scripts, comprehensive session notes, and a thoughtful structure are essential for effective work behind the microphone. These elements not only enhance clarity but also ensure a smooth flow during recordings, allowing for a more engaging experience for both the speaker and the audience.",
+  image: "/images/occasions/voice-artists.png",
+  href: "/collections/for-voice-artists",
+};
+
+export const occasions: Occasion[] = [
+  {
+    name: "For Designers",
+    description:
+      "A tactile edit for sketches, concepts, feedback, and bright new directions.",
+    image: "/images/occasions/designers.png",
+    href: "/collections/for-designers",
+  },
+  {
+    name: "For Dads",
+    description:
+      "Useful paper goods for plans, projects, and everyday things worth remembering.",
+    image: "/images/occasions/dads.png",
+    href: "/collections/for-dads",
+  },
+  {
+    name: "For Moms",
+    description:
+      "Beautiful companions for full days, family plans, and moments of her own.",
+    image: "/images/occasions/moms.png",
+    href: "/collections/for-moms",
+  },
+  {
+    name: "For Partners",
+    description:
+      "Thoughtful sets for shared plans, small notes, and celebrating your favorite person.",
+    image: "/images/occasions/partners.png",
+    href: "/collections/for-partners",
+  },
+];
+
+export const saleBanner = {
+  eyebrow: "a limited-time treat",
+  title: "A Little Something for\nyour Stationery Stash",
+  description:
+    "Don't miss out on an exclusive chance to snag up to 20% off on your favorite picks! This weekend-only offer is too good to last—shop now!",
+  // Philippine time (+08:00). Change this to your real sale end.
+  endsAt: "2026-11-02T23:59:59+08:00",
+  primaryCta: { label: "Shop the sale", href: "/shop?filter=sale" },
+  secondaryCta: { label: "View Limited Edition Items", href: "/shop?filter=limited" },
+};
+
+export const aboutTeaser = {
+  eyebrow: "made for everyday moments",
+  title: "Made for the way you\nthink, plan, and create.",
+  description:
+    "We believe the right piece of stationery can make everyday moments feel a little more intentional. From the first page of a new journal to the notes that keep a project moving, we're here for all the little things you put on paper.",
+  image: "/images/about/about.png",
+  imageAlt: "An open journal with handwritten notes",
+  cta: { label: "Get to know us", href: "/about" },
+};
+
+export const newsletter = {
+  eyebrow: "Notes from the studio",
+  title: "A little paper goodness in your inbox.",
+  subtitle: "Subscribe to our newsletter",
+  description:
+    "Stay ahead of the crowd by signing up for exclusive early access to deals and promotions on our latest products. Don't miss out on the chance to snag the best offers before anyone else!",
+  note: "No commitments. Unsubscribe anytime.",
+};

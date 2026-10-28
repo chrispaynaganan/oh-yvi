@@ -13,7 +13,7 @@ export default function AnnouncementBar() {
           className="flex shrink-0 items-center gap-1.5 text-white hover:underline"
         >
           <span className="trim block font-serif text-10">Shop now</span>
-          <span className="relative h-1.375 w-1.875">
+          <span className="relative h-1.25 w-2">
             <span className="absolute inset-[-8%_-5.71%]">
               <Image src="/icons/arrow-right-small.svg" alt="" fill unoptimized />
             </span>

@@ -56,7 +56,7 @@ export default function Button({
           alt=""
           width={12}
           height={12}
-          className="size-2.875"
+          className="size-3"
           unoptimized
         />
       )}
