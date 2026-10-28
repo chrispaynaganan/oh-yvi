@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import BundleCard from "@/components/product/BundleCard";
 import ProductGrid from "@/components/product/ProductGrid";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
@@ -7,7 +8,7 @@ import { bundles } from "@/data/bundles";
 import { collections } from "@/data/collections";
 import { products } from "@/data/products";
 
-type Props = { params: Promise<{ slug: string }> };
+type Params = Promise<{ slug: string }>;
 
 function getCollection(slug: string) {
   return collections.find((collection) => collection.slug === slug);
@@ -18,7 +19,7 @@ export function generateStaticParams() {
   return collections.map(({ slug }) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { slug } = await params;
   const collection = getCollection(slug);
   if (!collection) return {};
@@ -28,7 +29,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function CollectionPage({ params }: Props) {
+/* The shared "pad": the same for every collection, so it can be prefetched once */
+export default function CollectionPage({ params }: { params: Params }) {
+  return (
+    <main className="mx-auto max-w-site px-15 pt-16.25 pb-14.75">
+      <Suspense fallback={<CollectionSkeleton />}>
+        <CollectionContent params={params} />
+      </Suspense>
+    </main>
+  );
+}
+
+/* The collection-specific content, filled in from the URL */
+async function CollectionContent({ params }: { params: Params }) {
   const { slug } = await params;
   const collection = getCollection(slug);
   if (!collection) notFound();
@@ -37,7 +50,7 @@ export default async function CollectionPage({ params }: Props) {
   const collectionBundles = bundles.filter((b) => collection.bundleIds?.includes(b.id));
 
   return (
-    <main className="mx-auto max-w-site px-15 pt-16.25 pb-14.75">
+    <>
       <Breadcrumbs
         items={[
           { label: "Collections", href: "/collections" },
@@ -80,6 +93,25 @@ export default async function CollectionPage({ params }: Props) {
           </div>
         </section>
       )}
-    </main>
+    </>
+  );
+}
+
+/* Placeholder with the same layout, shown for a split second while content loads */
+function CollectionSkeleton() {
+  return (
+    <div aria-hidden className="animate-pulse">
+      <div className="h-2.5 w-56 rounded-full bg-surface-muted" />
+      <div className="mt-7.75 h-12 w-120 rounded-full bg-surface-muted" />
+      <div className="mt-8.25 grid grid-cols-12 gap-x-5">
+        <div className="col-span-4 h-22.5 rounded-xs bg-surface-muted" />
+        <div className="col-span-4 col-start-6 h-18.5 rounded-xs bg-surface-muted" />
+      </div>
+      <div className="mt-18 grid grid-cols-4 gap-5">
+        {Array.from({ length: 4 }, (_, i) => (
+          <div key={i} className="aspect-square rounded-2xl bg-surface-muted" />
+        ))}
+      </div>
+    </div>
   );
 }
