@@ -1,12 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import SectionHeader from "@/components/ui/SectionHeader";
-import {
-  featuredOccasion,
-  occasions,
-  occasionsSection,
-  type Occasion,
-} from "@/data/homepage";
+import { occasions, occasionsSection, type Occasion } from "@/data/homepage";
 
 function LearnMore() {
   return (
@@ -26,55 +21,33 @@ function LearnMore() {
   );
 }
 
-function OccasionText({ name, description }: Pick<Occasion, "name" | "description">) {
-  return (
-    <div className="flex w-full flex-col gap-2.5">
-      <h3 className="font-serif text-xl tracking-tight-2 text-brand">{name}</h3>
-      <p className="font-mono text-9 text-muted-2">{description}</p>
-    </div>
-  );
-}
-
-function FeaturedOccasionCard({ name, description, image, href }: Occasion) {
-  return (
-    <Link
-      href={href}
-      className="col-span-6 flex h-63.25 items-center gap-4 rounded-xl border border-line-rose bg-white p-4 shadow-card"
-    >
-      <div className="relative h-full flex-1 overflow-hidden rounded-xs bg-placeholder">
-        <Image
-          src={image}
-          alt={name}
-          fill
-          sizes="(min-width: 1512px) 318px, 21vw"
-          className="object-cover"
-        />
-      </div>
-      <div className="flex flex-1 flex-col items-start gap-9">
-        <OccasionText name={name} description={description} />
-        <LearnMore />
-      </div>
-    </Link>
-  );
-}
-
 function OccasionCard({ name, description, image, href }: Occasion) {
   return (
     <Link
       href={href}
-      className="flex h-63.25 flex-col gap-2 rounded-xl border border-line-soft px-2.5 py-3"
+      className="occasion flex h-63.25 min-w-0 grow-3 basis-0 flex-col gap-2 rounded-xl border border-line-soft px-2.5 py-3 transition-[flex-grow,padding,background-color,border-color,box-shadow] duration-500 ease-out expanded:grow-13 expanded:flex-row expanded:items-center expanded:gap-4 expanded:border-line-rose expanded:bg-white expanded:p-4 expanded:shadow-card"
     >
-      <div className="relative h-25 shrink-0 overflow-hidden rounded-xs bg-placeholder">
+      {/* Image: short strip on top → tall left half when expanded */}
+      <div className="relative h-25 w-full shrink-0 overflow-hidden rounded-xs bg-placeholder expanded:h-full expanded:w-auto expanded:flex-1">
         <Image
           src={image}
           alt={name}
           fill
-          sizes="(min-width: 1512px) 138px, 10vw"
+          sizes="(min-width: 1512px) 343px, 23vw"
           className="object-cover"
         />
       </div>
-      <div className="flex flex-1 flex-col items-start justify-between">
-        <OccasionText name={name} description={description} />
+
+      {/* Text: fills the card height when compact, centered beside the image when expanded */}
+      <div className="flex min-w-0 flex-1 flex-col items-start justify-between expanded:justify-start expanded:gap-9">
+        <div className="flex w-full flex-col gap-2.5">
+          <h3 className="font-serif text-xl tracking-tight-2 whitespace-nowrap text-brand">
+            {name}
+          </h3>
+          <p className="no-trim line-clamp-4 font-mono text-9 text-muted-2 expanded:line-clamp-none">
+            {description}
+          </p>
+        </div>
         <LearnMore />
       </div>
     </Link>
@@ -85,13 +58,10 @@ export default function OccasionShowcase() {
   return (
     <section className="mx-auto max-w-site px-15 pt-20">
       <SectionHeader {...occasionsSection} />
-      <div className="mt-24.25 grid grid-cols-12 gap-x-5">
-        <FeaturedOccasionCard {...featuredOccasion} />
-        <div className="col-span-6 grid grid-cols-4 gap-4">
-          {occasions.map((occasion) => (
-            <OccasionCard key={occasion.href} {...occasion} />
-          ))}
-        </div>
+      <div className="mt-24.25 flex gap-4">
+        {occasions.map((occasion) => (
+          <OccasionCard key={occasion.href} {...occasion} />
+        ))}
       </div>
     </section>
   );

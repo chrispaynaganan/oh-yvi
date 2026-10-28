@@ -83,15 +83,14 @@ export type Occasion = {
   href: string;
 };
 
-export const featuredOccasion: Occasion = {
-  name: "For Voice Artists",
+export const occasions: Occasion[] = [
+  {
+    name: "For Voice Artists",
   description:
     "Detailed scripts, comprehensive session notes, and a thoughtful structure are essential for effective work behind the microphone. These elements not only enhance clarity but also ensure a smooth flow during recordings, allowing for a more engaging experience for both the speaker and the audience.",
   image: "/images/occasions/voice-artists.png",
   href: "/collections/for-voice-artists",
-};
-
-export const occasions: Occasion[] = [
+  },
   {
     name: "For Designers",
     description:

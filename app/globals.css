@@ -123,6 +123,17 @@
   text-box: normal;
 }
 
+/* "expanded" = the occasion card is hovered or keyboard-focused.
+   Works on the card itself and on anything inside it. */
+@custom-variant expanded {
+  &:is(:hover, :focus-visible) {
+    @slot;
+  }
+  :is(.occasion:hover, .occasion:focus-visible) & {
+    @slot;
+  }
+}
+
 @layer base {
   body {
     background: #ffffff;
