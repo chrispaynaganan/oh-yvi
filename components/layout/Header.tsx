@@ -64,14 +64,14 @@ export default function Header() {
 
         <Link
           href="/"
-          aria-label="Oh Yvi home"
+          aria-label="Oh, Yvi! home"
           className="flex h-10 w-22.5 flex-col items-center justify-center"
         >
           <span className="block font-serif text-logo whitespace-nowrap text-brand">
-            Oh Yvi
+            Oh, Yvi!
           </span>
           <span className="block pt-1.75 font-mono text-7 leading-none tracking-wide-2 whitespace-nowrap text-brand uppercase">
-            paper goods
+            papered goodness
           </span>
         </Link>
 

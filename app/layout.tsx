@@ -17,7 +17,7 @@ const ptMono = PT_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Oh Yvi — Paper Goods",
+  title: "Oh, Yvi! — Papered Goodness",
   description:
     "Thoughtfully designed stationery for planning your days, collecting your ideas, and making a little more sense of everything in between.",
 };
