@@ -49,3 +49,20 @@ export const promoCards = [
     cta: { label: "Explore journals", href: "/collections/journals" },
   },
 ];
+
+export const categoriesSection = {
+  title: "Find Your Kind of Paper",
+  intro:
+    "Whether you're jotting down quick lists or crafting detailed plans, you'll find a format here that perfectly aligns with your unique way of thinking and organizing your thoughts.",
+  aside:
+    "This flexibility allows you to express your ideas clearly and effectively, no matter the scale of your project.",
+};
+
+export const productsSection = {
+  title: "Things You'll Love Having Around",
+  intro:
+    "The little essentials that make everyday planning feel a bit more enjoyable.",
+  aside:
+    "The little essentials that make everyday planning feel a bit more enjoyable.",
+  cta: { label: "View All Products", href: "/shop" },
+};

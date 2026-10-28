@@ -26,6 +26,8 @@
   --color-surface-tag: #f7f2ee;
   --color-strip: #383838;
   --color-disabled: #d5d5d5;
+  --color-placeholder: #d9d9d9;
+  --color-scrim: #202020;
 
   /* ===== Typography =====
      Figma uses "line height: normal", so the defaults are reset to match. */
