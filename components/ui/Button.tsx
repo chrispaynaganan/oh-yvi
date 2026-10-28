@@ -13,8 +13,8 @@ const variants: Record<Variant, string> = {
 };
 
 const sizes: Record<Size, string> = {
-  sm: "px-4 py-[10px] text-[13px]",
-  md: "px-4 py-3 text-[14px]",
+  sm: "px-4 py-2.5 text-13",
+  md: "px-4 py-3 text-sm",
 };
 
 type ButtonProps = {
@@ -43,7 +43,7 @@ export default function Button({
     <Link
       href={href}
       className={cn(
-        "inline-flex shrink-0 items-center justify-center gap-[10px] rounded-full font-serif leading-normal whitespace-nowrap transition-opacity hover:opacity-90",
+        "inline-flex shrink-0 items-center justify-center gap-2.5 rounded-full font-serif whitespace-nowrap transition-opacity hover:opacity-90",
         variants[variant],
         sizes[size],
         className,
@@ -56,7 +56,7 @@ export default function Button({
           alt=""
           width={12}
           height={12}
-          className="h-[11.5px] w-[11.508px]"
+          className="size-2.875"
           unoptimized
         />
       )}

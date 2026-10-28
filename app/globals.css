@@ -1,13 +1,10 @@
 @import "tailwindcss";
 
-/* ===== Oh Yvi design tokens =====
-   These become editable in the CMS theme editor later. */
 @theme {
-  /* Brand */
+  /* ===== Colors ===== */
   --color-brand: #49352b;
   --color-brand-soft: #523e32;
 
-  /* Text */
   --color-ink: #292522;
   --color-muted: #77716c;
   --color-muted-2: #6b6b6b;
@@ -16,14 +13,12 @@
   --color-strip-text: #a2a2a2;
   --color-disabled-text: #5c5c5c;
 
-  /* Lines */
   --color-line: #eae7e4;
   --color-line-rose: #e7d2d2;
   --color-line-soft: #e9e9e9;
   --color-line-strong: #d5d5d5;
   --color-line-input: #c4c4c4;
 
-  /* Surfaces */
   --color-surface: #f8f7f6;
   --color-surface-hero: #f8f8f8;
   --color-surface-muted: #f6f6f6;
@@ -32,7 +27,58 @@
   --color-strip: #383838;
   --color-disabled: #d5d5d5;
 
-  /* Radii */
+  /* ===== Typography =====
+     Figma uses "line height: normal", so the defaults are reset to match. */
+  --text-xs--line-height: normal;   /* 12px */
+  --text-sm--line-height: normal;   /* 14px */
+  --text-base--line-height: normal; /* 16px */
+  --text-lg--line-height: normal;   /* 18px */
+  --text-xl--line-height: normal;   /* 20px */
+  --text-2xl--line-height: normal;  /* 24px */
+
+  --text-7: 7px;
+  --text-8: 8px;
+  --text-9: 9px;
+  --text-10: 10px;
+  --text-11: 11px;
+  --text-13: 13px;
+  --text-21: 21px;
+  --text-25: 25px;
+  --text-50: 50px;
+
+  /* Named styles: size + line height + letter spacing in one class */
+  --text-display: 80px;
+  --text-display--line-height: 75.264px;
+  --text-display--letter-spacing: -3.456px;
+
+  --text-logo: 36px;
+  --text-logo--line-height: 25.2px;
+  --text-logo--letter-spacing: -2.88px;
+
+  --text-newsletter: 52px;
+  --text-newsletter--line-height: 52px;
+  --text-newsletter--letter-spacing: -1.56px;
+
+  --text-section: 41px;
+  --text-section--line-height: normal;
+  --text-section--letter-spacing: -1.68px;
+
+  --text-card-title: 32px;
+  --text-card-title--line-height: normal;
+  --text-card-title--letter-spacing: -1.56px;
+
+  --text-feature: 24px;
+  --text-feature--line-height: normal;
+  --text-feature--letter-spacing: -1.68px;
+
+  /* Letter spacing */
+  --tracking-tight-1: -0.5px;
+  --tracking-tight-2: -1px;
+  --tracking-tight-3: -2px;
+  --tracking-wide-1: 1px;
+  --tracking-wide-2: 1.54px;
+
+  /* ===== Radii ===== */
   --radius-xs: 8px;
   --radius-sm: 10px;
   --radius-md: 12px;
@@ -40,8 +86,23 @@
   --radius-xl: 20px;
   --radius-2xl: 24px;
 
-  /* Layout */
+  /* ===== Shadows ===== */
+  --shadow-hero: 6px 6px 25px 0 rgb(0 0 0 / 0.15);
+  --shadow-badge: 0 2px 5px 0 rgb(0 0 0 / 0.11);
+  --shadow-pill: 0 4px 5px 0 rgb(0 0 0 / 0.1);
+  --shadow-card: 0 8px 13px 0 rgb(0 0 0 / 0.1);
+
+  /* ===== Layout ===== */
   --container-site: 1512px;
+  --breakpoint-wide: 87.5rem; /* 1400px */
+
+  /* ===== Animations ===== */
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
 }
 
 /* Fonts come from next/font (see layout.tsx) */
@@ -50,9 +111,14 @@
   --font-mono: var(--font-pt-mono), ui-monospace, monospace;
 }
 
-/* Trims the empty space above/below text, like Figma does */
+/* Trims the space above/below text, like Figma */
 @utility trim {
   text-box: trim-both cap alphabetic;
+}
+
+/* Turns trimming off (needed where text is clipped, e.g. line-clamp) */
+@utility no-trim {
+  text-box: normal;
 }
 
 @layer base {
@@ -60,6 +126,7 @@
     background: #ffffff;
     color: var(--color-ink);
     font-family: var(--font-serif);
+    line-height: normal;
     -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3, h4, h5, h6 {
