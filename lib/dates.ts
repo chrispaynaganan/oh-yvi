@@ -9,3 +9,15 @@ const longDate = new Intl.DateTimeFormat("en-US", {
 export function formatLongDate(iso: string | Date) {
   return longDate.format(typeof iso === "string" ? new Date(iso) : iso);
 }
+
+const time = new Intl.DateTimeFormat("en-US", {
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: true,
+  timeZone: "Asia/Manila",
+});
+
+/** "09:45 AM" in Philippine time */
+export function formatTime(iso: string | Date) {
+  return time.format(typeof iso === "string" ? new Date(iso) : iso);
+}

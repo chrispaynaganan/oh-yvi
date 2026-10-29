@@ -14,6 +14,22 @@ export type OrderItem = {
   type: "physical" | "digital";
 };
 
+export type OrderStatus =
+  | "processing"
+  | "shipped"
+  | "out-for-delivery"
+  | "delivered"
+  | "returned"
+  | "cancelled"
+  | "refunded";
+
+export type TrackingEvent = {
+  title: string;
+  body: string;
+  /** ISO date; leave out for steps that haven't happened yet */
+  at?: string;
+};
+
 export type Order = {
   id: string;
   transactionId: string;
@@ -25,6 +41,9 @@ export type Order = {
   items: OrderItem[];
   totals: { subtotal: number; discount: number; shipping: number; paymentFee: number; total: number };
   promoCode?: string;
+  /** New orders start as "processing" */
+  status?: OrderStatus;
+  tracking?: { courier: string; number: string; url: string; events: TrackingEvent[] };
 };
 
 const STORAGE_KEY = "ohyvi:orders";

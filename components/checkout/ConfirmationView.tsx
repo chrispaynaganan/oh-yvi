@@ -274,7 +274,7 @@ export default function ConfirmationView() {
             {hasPhysical ? (
               <>
                 <Link
-                  href="/account/orders"
+                  href={`/account/orders/${order.id}`}
                   className="flex h-9 items-center rounded-full bg-brand px-6 text-white transition-opacity hover:opacity-90"
                 >
                   <span className="trim block font-serif text-sm">Track my order</span>

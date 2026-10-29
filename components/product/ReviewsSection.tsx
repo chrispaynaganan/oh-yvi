@@ -146,7 +146,7 @@ export default function ReviewsSection({
   }
 
   return (
-    <section className="mt-13.25">
+        <section id="reviews" className="mt-13.25 scroll-mt-50">
       <h2 className="font-serif text-28 text-ink">Ratings &amp; Reviews</h2>
 
       <div className="mt-7.25 flex items-center gap-11">
