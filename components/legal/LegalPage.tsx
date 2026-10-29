@@ -41,9 +41,9 @@ function Block({ block }: { block: LegalBlock }) {
 
     case "cards":
       return (
-        <div className="flex gap-4">
+        <div className="flex gap-4 max-xl:flex-col">
           {block.items.map((card) => (
-            <div key={card.title} className="flex flex-1 flex-col gap-5 rounded-lg border border-line-soft p-4 font-mono text-lg text-muted">
+            <div key={card.title} className="flex flex-1 flex-col gap-5 rounded-lg border border-line-soft p-4 font-mono text-lg text-muted max-xl:rounded-2xl">
               <p className="font-bold">{card.title}</p>
               <p>{card.body}</p>
             </div>
@@ -108,19 +108,19 @@ function Block({ block }: { block: LegalBlock }) {
 
 export default function LegalPage({ doc }: { doc: LegalDoc }) {
   return (
-    <main className="mx-auto max-w-site px-15 pt-16.25 pb-14">
+    <main className="mx-auto max-w-site px-15 pt-16.25 pb-14 max-xl:px-6.5 max-xl:pt-8 max-xl:pb-6">
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: doc.breadcrumb }]} />
 
-      <h1 className="mt-11 font-serif text-38 text-ink">{doc.title}</h1>
-      <div className="mt-5.5 flex gap-8.5 font-mono text-base text-muted">
+      <h1 className="mt-11 font-serif text-38 text-ink max-xl:mt-8.5 max-xl:text-36 max-xl:tracking-tight-2">{doc.title}</h1>
+      <div className="mt-5.5 flex gap-8.5 font-mono text-base text-muted max-xl:gap-25 max-xl:text-sm">
         <p>Last updated: {formatDate(doc.updated)}</p>
         <p>Effective: {formatDate(doc.effective)}</p>
       </div>
 
-      <div className="mt-21.5 grid grid-cols-12 items-start gap-x-5">
+      <div className="mt-21.5 grid grid-cols-12 items-start gap-x-5 max-xl:mt-9.25 max-xl:grid-cols-[280fr_484fr]">
         <LegalToc items={doc.sections.map(({ id, title }) => ({ id, title }))} />
 
-        <div className="col-span-8 col-start-5 flex flex-col gap-9.5">
+        <div className="col-span-8 col-start-5 flex flex-col gap-9.5 max-xl:col-span-1 max-xl:col-start-auto">
           {doc.sections.map((section, i) => (
             <section key={section.id} id={section.id} className="flex scroll-mt-50 flex-col gap-5">
               <h2 className="font-serif text-xl text-ink">

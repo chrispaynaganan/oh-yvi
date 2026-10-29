@@ -27,9 +27,9 @@ export default function LegalToc({ items }: { items: TocItem[] }) {
   }, [items]);
 
   return (
-    <nav aria-label="On this page" className="sticky top-50 col-span-4 self-start">
+    <nav aria-label="On this page" className="sticky top-50 col-span-4 self-start max-xl:top-45 max-xl:col-span-1">
       <h2 className="font-serif text-28 text-ink">On this page</h2>
-      <ol className="mt-8.75 list-decimal ps-6.75 font-mono text-lg leading-10 text-ink">
+      <ol className="mt-8.75 list-decimal ps-6.75 font-mono text-lg leading-10 text-ink max-xl:mt-10 max-xl:leading-8.75">
         {items.map((item) => (
           <li key={item.id}>
             <a

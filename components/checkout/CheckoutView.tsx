@@ -147,17 +147,17 @@ export default function CheckoutView() {
   }
 
   return (
-    <div className="mt-13 grid grid-cols-12 gap-x-5">
+    <div className="mt-13 grid grid-cols-12 gap-x-5 max-xl:mt-10 max-xl:grid-cols-[482fr_282fr]">
       {/* ---------- Details ---------- */}
       <form
         id="checkout-form"
         onSubmit={placeOrder}
-        className="col-span-8 flex flex-col gap-6 self-start rounded-2xl border border-line-soft p-2"
+        className="col-span-8 flex flex-col gap-6 self-start rounded-2xl border border-line-soft p-2 max-xl:col-span-1 max-xl:mt-7.5 max-xl:p-2.25"
       >
         <section className="flex flex-col gap-4">
           <SectionTitle>Contact</SectionTitle>
-          <div className="flex items-start gap-4.25 px-4">
-            <Field id="fullName" name="fullName" label="Full name" placeholder="john doe" autoComplete="name" required className="w-101" />
+          <div className="flex items-start gap-4.25 px-4 max-xl:flex-wrap">
+            <Field id="fullName" name="fullName" label="Full name" placeholder="john doe" autoComplete="name" required className="w-101 max-xl:w-full" />
             <Field
               id="email"
               name="email"
@@ -219,7 +219,7 @@ export default function CheckoutView() {
 
         <section className="flex flex-col gap-4">
           <SectionTitle>Payment</SectionTitle>
-          <div role="radiogroup" aria-label="Payment method" className="flex items-start gap-4">
+          <div role="radiogroup" aria-label="Payment method" className="flex items-start gap-4 max-xl:items-stretch">
             {paymentMethods.map((m) => {
               const active = m.id === method;
               return (
@@ -230,7 +230,7 @@ export default function CheckoutView() {
                   aria-checked={active}
                   onClick={() => setMethod(m.id)}
                   className={cn(
-                    "flex items-center gap-4 rounded-lg border px-4 py-2.5 transition-colors",
+                    "flex items-center gap-4 rounded-lg border px-4 py-2.5 transition-colors max-xl:flex-1 max-xl:flex-col max-xl:items-start max-xl:py-2.75",
                     active ? "border-line bg-white" : "border-transparent hover:border-line",
                   )}
                 >
@@ -242,11 +242,11 @@ export default function CheckoutView() {
                     className={cn(m.iconClass, !active && "opacity-60")}
                     unoptimized
                   />
-                  <span className="flex flex-col items-start gap-3 tracking-tight-2">
+                  <span className="flex flex-col items-start gap-3 tracking-tight-2 max-xl:mt-auto">
                     <span className={cn("trim block font-mono text-base font-bold", active ? "text-black" : "text-muted")}>
                       {m.title}
                     </span>
-                    <span className="trim block font-mono text-sm text-muted">{m.subtitle}</span>
+                    <span className="trim block font-mono text-sm text-muted max-xl:hidden">{m.subtitle}</span>
                   </span>
                 </button>
               );
@@ -294,24 +294,24 @@ export default function CheckoutView() {
       </form>
 
       {/* ---------- Summary ---------- */}
-      <aside className="sticky top-49.75 col-span-4 col-start-9 self-start overflow-hidden rounded-2xl border border-line-soft bg-white">
+      <aside className="sticky top-49.75 col-span-4 col-start-9 self-start overflow-hidden rounded-2xl border border-line-soft bg-white max-xl:top-45 max-xl:col-span-1 max-xl:col-start-auto">
         <div className="flex items-center justify-between p-4">
-          <h2 className="font-serif text-2xl text-black">Order summary</h2>
+          <h2 className="font-serif text-2xl text-black max-xl:text-xl">Order summary</h2>
           <Link href="/bag" aria-label="Edit your bag" className="relative size-10 transition-opacity hover:opacity-80">
             <Image src="/icons/edit-circle.svg" alt="" fill unoptimized />
           </Link>
         </div>
 
-        <div className="flex flex-col gap-6 px-4 py-5.75">
+        <div className="flex flex-col gap-6 px-4 py-5.75 max-xl:px-2.75 max-xl:py-4">
           <ul className="flex flex-col">
             {rows.map(({ line, item }) => (
-              <li key={line.key} className="flex items-center justify-between gap-4 py-4 pr-4">
+              <li key={line.key} className="flex items-center justify-between gap-4 py-4 pr-4 max-xl:gap-2 max-xl:py-3 max-xl:pr-0">
                 <div className="flex items-center gap-3.5">
-                  <div className="relative size-16 shrink-0 overflow-hidden rounded-md bg-placeholder">
+                  <div className="relative size-16 shrink-0 overflow-hidden rounded-md bg-placeholder max-xl:size-12">
                     <Image src={item.image} alt="" fill sizes="64px" className="object-cover" />
                   </div>
                   <div className="flex flex-col gap-3">
-                    <span className="trim block font-mono text-base font-bold text-black">
+                    <span className="trim block font-mono text-base font-bold text-black max-xl:text-sm">
                       {item.name} x {line.quantity}
                     </span>
                     {item.options.length > 0 && (
@@ -321,7 +321,7 @@ export default function CheckoutView() {
                     )}
                   </div>
                 </div>
-                <span className="trim block font-mono text-base font-bold whitespace-nowrap text-black">
+                <span className="trim block font-mono text-base font-bold whitespace-nowrap text-black max-xl:text-sm">
                   {formatPeso(item.unitPrice * line.quantity)}
                 </span>
               </li>
@@ -330,7 +330,7 @@ export default function CheckoutView() {
 
           <div aria-hidden className="h-px bg-line-soft" />
 
-          <dl className="flex flex-col gap-4 font-mono text-base">
+          <dl className="flex flex-col gap-4 font-mono text-base max-xl:text-xs">
             <div className="flex items-center justify-between">
               <dt className="trim text-muted">
                 Subtotal ({totals.itemCount} {totals.itemCount === 1 ? "item" : "items"})
@@ -363,8 +363,8 @@ export default function CheckoutView() {
 
           <div className="flex flex-col gap-6">
             <div className="flex items-center justify-between">
-              <span className="trim block font-mono text-base text-muted">Estimated total</span>
-              <span className="trim block font-mono text-30 font-bold text-black">{formatPeso(totals.total)}</span>
+              <span className="trim block font-mono text-base text-muted max-xl:text-xs">Estimated total</span>
+              <span className="trim block font-mono text-30 font-bold text-black max-xl:text-xl">{formatPeso(totals.total)}</span>
             </div>
             <div className="flex flex-col gap-5.75">
               <button
