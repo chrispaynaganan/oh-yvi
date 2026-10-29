@@ -177,12 +177,14 @@ export default function BagView() {
         </span>
       </div>
 
-      {/* Items */}
-      <ul className="col-span-8 row-start-2 ml-15 divide-y divide-line-soft rounded-4xl border border-line-soft">
-        {rows.map(({ line, item }) => (
-          <BagRow key={line.key} line={line} item={item} />
-        ))}
-      </ul>
+    {/* Items: fits up to 3 products, then scrolls on its own */}
+      <div className="scrollbar-soft col-span-8 row-start-2 max-h-160 self-start overflow-y-auto">
+        <ul className="ml-15 divide-y divide-line-soft rounded-4xl border border-line-soft">
+          {rows.map(({ line, item }) => (
+            <BagRow key={line.key} line={line} item={item} />
+          ))}
+        </ul>
+      </div>
 
       {/* Summary */}
       <aside className="sticky top-49.75 col-span-4 col-start-9 row-start-2 flex flex-col gap-11.75 self-start rounded-4xl border border-line-soft bg-white px-6 py-8">
@@ -277,7 +279,7 @@ export default function BagView() {
             <span className="trim block font-mono text-30 font-bold text-black">{formatPeso(total)}</span>
           </div>
           <Link
-            href="/checkout"
+            href="/checkout/login"
             aria-disabled={itemCount === 0}
             className={cn(
               "flex h-9 items-center justify-center rounded-full bg-brand px-4 text-white transition-opacity hover:opacity-90",

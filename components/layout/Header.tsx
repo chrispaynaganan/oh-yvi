@@ -88,7 +88,7 @@ export default function Header() {
             </Link>
           ))}
           <div className="flex items-start gap-2">
-            <IconButton href="/account" label="Account" icon="/icons/user.svg" />
+            <IconButton href="/login" label="Account" icon="/icons/user.svg" />
             <InterestsButton />
             <BagButton />
           </div>

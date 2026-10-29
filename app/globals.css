@@ -56,6 +56,7 @@
   --text-21: 21px;
   --text-25: 25px;
   --text-50: 50px;
+  --text-44: 44px;
   --text-29: 29px;
   --text-30: 30px;
   --text-38: 38px;
@@ -119,6 +120,7 @@
   --shadow-pill: 0 4px 5px 0 rgb(0 0 0 / 0.1);
   --shadow-card: 0 8px 13px 0 rgb(0 0 0 / 0.1);
   --shadow-badge-lg: 0 6px 7.5px 0 rgb(0 0 0 / 0.1);
+  --shadow-auth: 0 18px 37.5px 0 rgb(0 0 0 / 0.08);
   --drop-shadow-menu: 18px 0 25px rgb(41 37 34 / 0.12);
 
   /* ===== Layout ===== */
