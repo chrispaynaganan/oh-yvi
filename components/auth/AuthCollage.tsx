@@ -1,16 +1,14 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-// Three staggered columns, positioned as in Figma
-const PHOTOS = [
-  { src: "/images/auth/photo-1.png", className: "top-13 left-0" },
-  { src: "/images/auth/photo-2.png", className: "top-108.5 left-0" },
-  { src: "/images/auth/photo-3.png", className: "top-202 left-0" },
-  { src: "/images/auth/photo-4.png", className: "top-35.5 left-73.25" },
-  { src: "/images/auth/photo-5.png", className: "top-130.75 left-73.25" },
-  { src: "/images/auth/photo-6.png", className: "top-0 left-147.25" },
-  { src: "/images/auth/photo-7.png", className: "top-95.25 left-147.25" },
-  { src: "/images/auth/photo-8.png", className: "top-189.75 left-147.25" },
+const photo = (n: number) => `/images/auth/photo-${n}.png`;
+
+// Each column repeats its photos end to end so the loop is seamless.
+// Photos are placeholders; the CMS will supply them later.
+const COLUMNS = [
+  { key: "left", photos: [1, 2, 3], className: "left-0 animate-scroll-up", duration: "48s" },
+  { key: "middle", photos: [4, 5, 1], className: "left-73.25 animate-scroll-down", duration: "56s" },
+  { key: "right", photos: [6, 7, 8], className: "left-147.25 animate-scroll-up", duration: "52s" },
 ];
 
 // Fades the collage into the page at the top and bottom
@@ -23,12 +21,23 @@ export default function AuthCollage() {
       className="relative h-205 w-213 overflow-hidden"
       style={{ maskImage: FADE, WebkitMaskImage: FADE }}
     >
-      {PHOTOS.map((photo) => (
+      {COLUMNS.map((column) => (
         <div
-          key={photo.src}
-          className={cn("absolute h-89.5 w-65.75 overflow-hidden rounded-2xl bg-placeholder", photo.className)}
+          key={column.key}
+          className={cn(
+            "absolute top-0 flex w-65.75 flex-col gap-6 pb-6 motion-reduce:animate-none",
+            column.className,
+          )}
+          style={{ animationDuration: column.duration }}
         >
-          <Image src={photo.src} alt="" fill sizes="263px" className="object-cover" />
+          {[...column.photos, ...column.photos].map((n, i) => (
+            <div
+              key={i}
+              className="relative h-89.5 w-full shrink-0 overflow-hidden rounded-2xl bg-placeholder"
+            >
+              <Image src={photo(n)} alt="" fill sizes="263px" className="object-cover" />
+            </div>
+          ))}
         </div>
       ))}
     </div>

@@ -35,6 +35,11 @@
   --color-save: #4d6935;
   --color-heart: #c62f2f;
   --color-line-dark: #949494;
+  --color-night: #232323;
+  --color-night-line: #404040;
+  --color-error: #f54747;
+  --color-error-ink: #212020;
+  --color-error-deep: #c12525;
   --color-star: #a68a6d;
   --color-star-empty: #e8e5e3;
 
@@ -59,6 +64,7 @@
   --text-44: 44px;
   --text-29: 29px;
   --text-30: 30px;
+  --text-36: 36px;
   --text-38: 38px;
   --text-15: 15px;
   --text-17: 17px;
@@ -134,6 +140,20 @@
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
   }
+
+  --animate-scroll-up: scroll-up 48s linear infinite;
+  --animate-scroll-down: scroll-down 48s linear infinite;
+
+  @keyframes scroll-up {
+    from { transform: translateY(0); }
+    to { transform: translateY(-50%); }
+  }
+
+  @keyframes scroll-down {
+    from { transform: translateY(-50%); }
+    to { transform: translateY(0); }
+  }
+
 }
 
 /* Fonts come from next/font (see layout.tsx) */
