@@ -7,6 +7,7 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import { bundles } from "@/data/bundles";
 import { collections } from "@/data/collections";
 import { products } from "@/data/products";
+import EmptyState from "@/components/ui/EmptyState";
 
 type Params = Promise<{ slug: string }>;
 
@@ -77,9 +78,11 @@ async function CollectionContent({ params }: { params: Params }) {
         {collectionProducts.length > 0 ? (
           <ProductGrid products={collectionProducts} />
         ) : (
-          <p className="font-mono text-sm text-muted">
-            New pieces are on their way. Check back soon.
-          </p>
+            <EmptyState
+            className="mt-10.5"
+            message="New pieces for this collection are on their way. In the meantime, our bundles pair a few favorites together."
+            cta={{ label: "See Bundles", href: "/bundles" }}
+          />
         )}
       </section>
 

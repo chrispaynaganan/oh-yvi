@@ -8,6 +8,7 @@ import {
   type NavLink,
 } from "@/data/navigation";
 import MenuButton from "@/components/layout/MenuButton";
+import InterestsButton from "@/components/layout/InterestsButton";
 
 function NavChip({ label, href }: NavLink) {
   return (
@@ -87,7 +88,7 @@ export default function Header() {
           ))}
           <div className="flex items-start gap-2">
             <IconButton href="/account" label="Account" icon="/icons/user.svg" />
-            <IconButton href="/interests" label="Interests" icon="/icons/heart.svg" />
+            <InterestsButton />
             <IconButton href="/cart" label="Cart with 0 items" icon="/icons/cart.svg" />
           </div>
         </div>

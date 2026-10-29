@@ -63,23 +63,30 @@ function EmptyIllustration() {
 
 type EmptyStateProps = {
   message: string;
-  cta?: { label: string; href: string };
+  /** A link (href) or an action (onClick) */
+  cta?: { label: string; href?: string; onClick?: () => void };
   className?: string;
 };
+
+const ctaClass =
+  "mt-10.25 flex h-10 items-center rounded-2xl border border-brand bg-brand px-4 text-white transition-opacity hover:opacity-90";
 
 export default function EmptyState({ message, cta, className }: EmptyStateProps) {
   return (
     <div className={cn("flex flex-col items-center", className)}>
       <EmptyIllustration />
       <p className="mt-6.75 w-112.75 text-center font-mono text-sm text-muted">{message}</p>
-      {cta && (
-        <Link
-          href={cta.href}
-          className="mt-10.25 flex h-10 items-center rounded-2xl border border-brand bg-brand px-4 text-white transition-opacity hover:opacity-90"
-        >
+      {cta?.href && (
+        <Link href={cta.href} className={ctaClass}>
           <span className="trim block font-serif text-sm">{cta.label}</span>
         </Link>
       )}
+      {cta && !cta.href && cta.onClick && (
+        <button type="button" onClick={cta.onClick} className={ctaClass}>
+          <span className="trim block font-serif text-sm">{cta.label}</span>
+        </button>
+      )}
     </div>
   );
+
 }

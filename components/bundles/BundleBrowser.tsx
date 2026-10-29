@@ -4,6 +4,7 @@ import { useState } from "react";
 import BundleCard from "@/components/product/BundleCard";
 import { cn } from "@/lib/utils";
 import type { Bundle } from "@/types";
+import EmptyState from "@/components/ui/EmptyState";
 
 type Filter = { label: string; collectionSlug: string };
 
@@ -62,9 +63,11 @@ export default function BundleBrowser({
           ))}
         </div>
       ) : (
-        <p className="mt-8.5 font-mono text-sm text-muted">
-          No bundles here yet. Check back soon.
-        </p>
+        <EmptyState
+          className="mt-19"
+          message="There are no bundles for this one yet. Take a peek at the rest — something lovely is waiting."
+          cta={{ label: "Show all bundles", onClick: () => setActive(null) }}
+        />
       )}
     </>
   );
