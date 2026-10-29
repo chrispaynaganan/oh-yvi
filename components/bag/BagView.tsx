@@ -49,7 +49,7 @@ function SelectCircle({
 
 function BagRow({ line, item }: { line: BagLine; item: CatalogItem }) {
   return (
-    <li className="relative flex flex-col gap-6 p-4">
+    <li className="relative flex flex-col gap-6 p-6">
       <SelectCircle
         checked={line.selected}
         onToggle={() => setSelected(line.key, !line.selected)}
