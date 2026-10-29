@@ -17,7 +17,8 @@ import { menuGroups } from "@/data/navigation";
 /* ---------- Genie settings (tweak these to adjust the feel) ---------- */
 const PANEL_W = 321; // panel width in Figma
 const PANEL_H = 517; // panel height in Figma
-const SLICES = 40; // more slices = smoother curve
+const SLICES = 48; // more slices = smoother text warp
+const OUTLINE_POINTS = 64; // points on the smooth outline
 const OPEN_DURATION = 0.6; // seconds
 const CLOSE_DURATION = 0.45;
 const ORIGIN_X = 38.5; // ✕ / ☰ icon center, px from the panel's left edge
@@ -27,16 +28,27 @@ const SLICE_H = PANEL_H / SLICES;
 const clamp = (v: number) => Math.min(1, Math.max(0, v));
 const smooth = (u: number) => u * u * (3 - 2 * u);
 
-/** Where a strip sits and how wide it is at a given moment (0 = closed, 1 = open). */
-function genie(progress: number, stripCenter: number) {
-  // Phase 1: content slides out of the icon
-  const slide = 1 - smooth(clamp(progress / 0.7));
-  const currentY = stripCenter - slide * PANEL_H;
-  // Phase 2: the funnel relaxes into a rectangle
+/** How far the content is still tucked into the icon (1 → 0) */
+const slideOf = (progress: number) => 1 - smooth(clamp(progress / 0.7));
+
+/** Width (as a fraction) of the funnel at a height on screen */
+function scaleAt(progress: number, screenY: number) {
   const relax = smooth(clamp((progress - 0.35) / 0.65));
-  // Funnel: narrow near the icon, full width further away
-  const funnel = NECK + (1 - NECK) * smooth(clamp(currentY / (PANEL_H * 0.85)));
-  return { y: -slide * PANEL_H, scaleX: funnel + (1 - funnel) * relax };
+  const funnel = NECK + (1 - NECK) * smooth(clamp(screenY / (PANEL_H * 0.85)));
+  return funnel + (1 - funnel) * relax;
+}
+
+/** The smooth funnel outline the strips are clipped to */
+function outline(progress: number) {
+  const right: string[] = [];
+  const left: string[] = [];
+  for (let i = 0; i <= OUTLINE_POINTS; i++) {
+    const y = (PANEL_H * i) / OUTLINE_POINTS;
+    const s = scaleAt(progress, y);
+    right.push(`${(ORIGIN_X + (PANEL_W - ORIGIN_X) * s).toFixed(1)}px ${y.toFixed(1)}px`);
+    left.unshift(`${(ORIGIN_X - ORIGIN_X * s).toFixed(1)}px ${y.toFixed(1)}px`);
+  }
+  return `polygon(${[...right, ...left].join(", ")})`;
 }
 
 /* ---------- Panel visuals (shared by the real menu and the animated strips) ---------- */
@@ -95,9 +107,10 @@ function Strip({
   children: React.ReactNode;
 }) {
   const top = index * SLICE_H;
-  const center = top + SLICE_H / 2;
-  const y = useTransform(progress, (p) => genie(p, center).y);
-  const scaleX = useTransform(progress, (p) => genie(p, center).scaleX);
+  const bottom = top + SLICE_H;
+  const y = useTransform(progress, (p) => -slideOf(p) * PANEL_H);
+  // Sized by its widest (bottom) edge so the smooth outline never cuts a notch
+  const scaleX = useTransform(progress, (p) => scaleAt(p, bottom - slideOf(p) * PANEL_H));
 
   return (
     <motion.div
@@ -110,15 +123,20 @@ function Strip({
 }
 
 function GenieStrips({ progress }: { progress: MotionValue<number> }) {
+  const clipPath = useTransform(progress, outline);
   const copy = <Panel inert />;
   return (
-    <div aria-hidden className="relative overflow-hidden" style={{ width: PANEL_W, height: PANEL_H }}>
+    <motion.div
+      aria-hidden
+      className="relative overflow-hidden"
+      style={{ width: PANEL_W, height: PANEL_H, clipPath }}
+    >
       {Array.from({ length: SLICES }, (_, i) => (
         <Strip key={i} index={i} progress={progress}>
           {copy}
         </Strip>
       ))}
-    </div>
+    </motion.div>
   );
 }
 

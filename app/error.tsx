@@ -6,7 +6,7 @@ import { store } from "@/data/store";
 
 function SpotlightArt() {
   return (
-        <div aria-hidden className="pointer-events-none absolute top-1/2 left-1/2 h-245.5 w-378 -translate-x-1/2 -translate-y-1/2">
+        <div aria-hidden className="pointer-events-none absolute top-1/2 left-1/2 h-245.5 w-site -translate-x-1/2 -translate-y-1/2">
       <div className="absolute top-118.25 left-185.5 h-137.25 w-213.5">
         <Image src="/images/errors/torn-notebook.png" alt="" fill sizes="854px" className="object-cover" />
       </div>
