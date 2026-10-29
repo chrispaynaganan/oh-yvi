@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function AccountHeader() {
   return (
     <header className="shrink-0 border-b border-line bg-white">
-      <div className="mx-auto flex h-22 max-w-site items-center justify-between px-15">
+      <div className="mx-auto flex h-22 max-w-site items-center justify-between px-15 max-xl:px-6.5">
         <Link href="/" aria-label="Oh, Yvi! home" className="flex flex-col items-center text-brand">
           <span className="font-serif text-logo leading-none">Oh, Yvi!</span>
           <span className="mt-1.75 font-mono text-7 tracking-widest uppercase">papered goodness</span>

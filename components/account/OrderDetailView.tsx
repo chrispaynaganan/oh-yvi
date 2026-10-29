@@ -176,12 +176,14 @@ export default function OrderDetailView() {
 
   return (
     <>
-      <Breadcrumbs items={[{ label: "Orders", href: "/account/orders" }, { label: `Order No. ${order.id}` }]} />
+      <div className="max-xl:hidden">
+        <Breadcrumbs items={[{ label: "Orders", href: "/account/orders" }, { label: `Order No. ${order.id}` }]} />
+      </div>
 
-      <div className="mt-11.75 flex items-start justify-between gap-10">
+      <div className="mt-11.75 flex items-start justify-between gap-10 max-xl:mt-13.75 max-xl:gap-6">
         <div>
           <h1 className="font-serif text-36 tracking-tight-3 text-black">{STATUS_HEADLINE[status]}</h1>
-          <div className="mt-6.5 grid w-174 grid-cols-2 gap-x-5 gap-y-3 font-mono text-base tracking-tight-2 text-muted">
+          <div className="mt-6.5 grid w-174 grid-cols-2 gap-x-5 gap-y-3 font-mono text-base tracking-tight-2 text-muted max-xl:w-auto max-xl:grid-cols-1">
             <p>Order number: {order.id}</p>
             <p>Payment Method: {order.payment.label}</p>
             <p>Transaction ID: {order.transactionId}</p>
@@ -198,9 +200,9 @@ export default function OrderDetailView() {
         </div>
       </div>
 
-      <div className="mt-13.5 grid grid-cols-12 items-start gap-5">
+      <div className="mt-13.5 grid grid-cols-12 items-start gap-5 max-xl:mt-6 max-xl:grid-cols-2">
         {/* Tracking */}
-        <section className="col-span-9 flex flex-col gap-6.5 rounded-2xl bg-white p-6">
+        <section className="col-span-9 flex flex-col gap-6.5 rounded-2xl bg-white p-6 max-xl:order-4 max-xl:col-span-2 max-xl:p-4">
           <h2 className="font-mono text-lg font-bold tracking-tight-2 text-black">Tracking history</h2>
           {physical ? (
             <div className="flex flex-col gap-8.5">
@@ -219,9 +221,10 @@ export default function OrderDetailView() {
         </section>
 
         {/* Side cards */}
-        <div className="col-span-3 flex flex-col gap-4">
+        {/* Tablet: these cards join the grid (items left, address + help right) */}
+        <div className="col-span-3 flex flex-col gap-4 max-xl:contents">
           {order.address && (
-            <section className={cn(CARD, "flex flex-col gap-5.5 font-mono text-sm tracking-tight-2")}>
+            <section className={cn(CARD, "flex flex-col gap-5.5 font-mono text-sm tracking-tight-2 max-xl:order-2")}>
               <h2 className="font-bold text-muted">Delivering to</h2>
               <div className="flex flex-col gap-3">
                 <p className="flex items-center gap-2 text-muted">
@@ -234,7 +237,7 @@ export default function OrderDetailView() {
             </section>
           )}
 
-          <section className={cn(CARD, "flex flex-col gap-4 font-mono text-base tracking-tight-2 text-black")}>
+          <section className={cn(CARD, "flex flex-col gap-4 font-mono text-base tracking-tight-2 text-black max-xl:order-1 max-xl:row-span-2 max-xl:self-stretch")}>
             {order.items.map((item) => (
               <div key={item.key} className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3.75">
@@ -248,13 +251,13 @@ export default function OrderDetailView() {
                 <span className="trim block font-bold whitespace-nowrap">{formatPeso(item.unitPrice * item.quantity)}</span>
               </div>
             ))}
-            <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center justify-between gap-3 max-xl:mt-auto">
               <span className="trim block">Total paid{physical ? " (incl. shipping)" : ""}</span>
               <span className="trim block font-bold">{formatPeso(order.totals.total)}</span>
             </div>
           </section>
 
-          <section className={cn(CARD, "flex flex-col gap-5.5 font-mono text-sm tracking-tight-2")}>
+          <section className={cn(CARD, "flex flex-col gap-5.5 font-mono text-sm tracking-tight-2 max-xl:order-3")}>
             <h2 className="font-bold text-muted">Need help with this order?</h2>
             <div className="flex flex-col gap-4">
               <p className="text-black">Damaged, missing, or wrong item? Message us within 7 days of delivery.</p>
