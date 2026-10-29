@@ -40,6 +40,9 @@
   --color-error: #f54747;
   --color-error-ink: #212020;
   --color-error-deep: #c12525;
+  --color-done: #eafadc;
+  --color-done-ink: #406a1c;
+  --color-done-sub: #3b7f00;
   --color-star: #a68a6d;
   --color-star-empty: #e8e5e3;
 
@@ -64,6 +67,7 @@
   --text-44: 44px;
   --text-29: 29px;
   --text-30: 30px;
+  --text-32: 32px;
   --text-36: 36px;
   --text-38: 38px;
   --text-15: 15px;

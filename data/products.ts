@@ -100,5 +100,6 @@ export const products: Product[] = [
     promoEndsAt: "2026-11-02T23:59:59+08:00",
     stock: 16,
     options: ["A5", "Clothbound"],
+    file: { format: "PDF", size: "12.2MB" },
   },
 ];

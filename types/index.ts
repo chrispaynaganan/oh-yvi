@@ -27,6 +27,8 @@ export type Product = {
   stock?: number;
   /** Short option labels shown in the bag, e.g. ["A5", "Clothbound"] */
   options?: string[];
+  /** Digital products: what the customer downloads */
+  file?: { format: string; size: string };
 };
 
 export type CollectionKind = "category" | "occasion";

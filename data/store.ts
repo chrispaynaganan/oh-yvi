@@ -7,4 +7,9 @@ export const store = {
     "No payment or convenience fees, for any method",
     "Your final shipping fee is shown before you pay",
   ],
+  sellerName: "Oh, Yvi!",
+  sellerAddress: "Tambo, Lipa, Batangas",
+  tin: "123-456-789",
+  /** Days from order to estimated delivery */
+  estimatedDeliveryDays: 3,
 };
