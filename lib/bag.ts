@@ -146,3 +146,37 @@ export function setSelected(key: BagKey, selected: boolean) {
 export function setAllSelected(selected: boolean) {
   saveLines(readLines().map((line) => ({ ...line, selected })));
 }
+
+/* ---------- Promo / affiliate code ---------- */
+const PROMO_KEY = "ohyvi:promo";
+let promoCode: string | null | undefined; // undefined = not read yet
+
+function readPromo(): string | null {
+  if (promoCode !== undefined) return promoCode;
+  try {
+    promoCode = window.localStorage.getItem(PROMO_KEY);
+  } catch {
+    promoCode = null;
+  }
+  return promoCode;
+}
+
+export function usePromoCode() {
+  return useSyncExternalStore(subscribe, readPromo, () => null);
+}
+
+export function setPromoCode(code: string | null) {
+  promoCode = code;
+  try {
+    if (code) window.localStorage.setItem(PROMO_KEY, code);
+    else window.localStorage.removeItem(PROMO_KEY);
+  } catch {
+    // storage blocked
+  }
+  emit();
+}
+
+/** Removes the purchased lines after an order is placed */
+export function removeLines(keys: BagKey[]) {
+  saveLines(readLines().filter((line) => !keys.includes(line.key)));
+}

@@ -11,6 +11,7 @@ export type CatalogItem = {
   options: string[];
   href: string;
   maxQuantity: number;
+  type: "physical" | "digital";
 };
 
 export function resolveItem(key: BagKey): CatalogItem | null {
@@ -28,6 +29,7 @@ export function resolveItem(key: BagKey): CatalogItem | null {
       options: product.options ?? [],
       href: `/products/${product.slug}`,
       maxQuantity: product.stock ?? 99,
+      type: product.type ?? "physical",
     };
   }
 
@@ -42,5 +44,6 @@ export function resolveItem(key: BagKey): CatalogItem | null {
     options: [`${bundle.items.length} items`, "Bundle"],
     href: `/bundles/${bundle.slug}`,
     maxQuantity: 99,
+    type: "physical",
   };
 }

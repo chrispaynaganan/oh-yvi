@@ -16,20 +16,25 @@ const NOT_CONNECTED: AuthResult = {
   error: "Accounts aren’t switched on yet. This will work once the store’s backend is connected.",
 };
 
+// While building: in local development, every sign-in "succeeds" so the
+// purchase flow can be tested end to end. On the live site this is off.
+const DEV_BYPASS = process.env.NODE_ENV === "development";
+const result = (): AuthResult => (DEV_BYPASS ? { ok: true } : NOT_CONNECTED);
+
 // TODO(backend): replace each body with Supabase Auth calls.
 // The pages only depend on these three functions and their result shape.
 
 export async function signUp(input: SignUpInput): Promise<AuthResult> {
   void input;
-  return NOT_CONNECTED;
+  return result();
 }
 
 export async function signIn(input: SignInInput): Promise<AuthResult> {
   void input;
-  return NOT_CONNECTED;
+  return result();
 }
 
 export async function signInWithProvider(provider: AuthProvider): Promise<AuthResult> {
   void provider;
-  return NOT_CONNECTED;
+  return result();
 }

@@ -5,17 +5,19 @@ import Link from "next/link";
 import { Fragment, useState, type FormEvent } from "react";
 import EmptyState from "@/components/ui/EmptyState";
 import QuantityStepper from "@/components/ui/QuantityStepper";
-import { promos, type Promo } from "@/data/promos";
 import { store } from "@/data/store";
 import {
   removeFromBag,
   setAllSelected,
+  setPromoCode,
   setQuantity,
   setSelected,
   useBag,
+  usePromoCode,
   type BagLine,
 } from "@/lib/bag";
 import { resolveItem, type CatalogItem } from "@/lib/catalog";
+import { computeTotals, findPromo } from "@/lib/pricing";
 import { cn, formatPeso } from "@/lib/utils";
 
 function SelectCircle({
@@ -112,8 +114,8 @@ function BagRow({ line, item }: { line: BagLine; item: CatalogItem }) {
 
 export default function BagView() {
   const bag = useBag();
+  const promoCode = usePromoCode();
   const [code, setCode] = useState("");
-  const [promo, setPromo] = useState<Promo | null>(null);
   const [promoMessage, setPromoMessage] = useState("");
 
   // Server render: the browser's bag isn't readable yet
@@ -133,34 +135,32 @@ export default function BagView() {
     );
   }
 
+  const promo = findPromo(promoCode);
   const selected = rows.filter(({ line }) => line.selected);
   const allSelected = rows.every(({ line }) => line.selected);
-  const itemCount = selected.reduce((sum, { line }) => sum + line.quantity, 0);
-  const subtotal = selected.reduce((sum, { line, item }) => sum + item.unitPrice * line.quantity, 0);
-  const discount = promo ? Math.round((subtotal * promo.percent) / 100) : 0;
-  const afterDiscount = subtotal - discount;
+  const { itemCount, subtotal, discount, afterDiscount, needsShipping, freeShipping, shipping, total } =
+    computeTotals(
+      selected.map(({ line, item }) => ({ unitPrice: item.unitPrice, quantity: line.quantity, type: item.type })),
+      promo,
+    );
   const threshold = store.freeShippingThreshold;
-  const freeShipping = afterDiscount >= threshold;
-  const shipping = itemCount === 0 || freeShipping ? 0 : store.standardShipping;
-  const total = afterDiscount + shipping;
   const remaining = Math.max(0, threshold - afterDiscount);
   const progress = Math.min(100, (afterDiscount / threshold) * 100);
 
   function applyCode(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const found = promos.find((p) => p.code.toLowerCase() === code.trim().toLowerCase());
+    const found = findPromo(code.trim());
     if (found) {
-      setPromo(found);
+      setPromoCode(found.code);
       setPromoMessage(`${found.label}: ${found.percent}% off applied.`);
     } else {
-      setPromo(null);
+      setPromoCode(null);
       setPromoMessage("That code doesn’t work. Check the spelling and try again.");
     }
   }
 
   return (
     <div className="mt-10 grid grid-cols-12 gap-x-5 gap-y-6">
-      {/* Select row */}
       <div className="col-span-8 flex items-center justify-between">
         <div className="flex items-center gap-6.5">
           <SelectCircle
@@ -177,7 +177,6 @@ export default function BagView() {
         </span>
       </div>
 
-    {/* Items: fits up to 3 products, then scrolls on its own */}
       <div className="scrollbar-soft col-span-8 row-start-2 max-h-160 self-start overflow-y-auto">
         <ul className="ml-15 divide-y divide-line-soft rounded-4xl border border-line-soft">
           {rows.map(({ line, item }) => (
@@ -186,7 +185,6 @@ export default function BagView() {
         </ul>
       </div>
 
-      {/* Summary */}
       <aside className="sticky top-49.75 col-span-4 col-start-9 row-start-2 flex flex-col gap-11.75 self-start rounded-4xl border border-line-soft bg-white px-6 py-8">
         <div className="flex flex-col gap-6.5">
           <h2 className="font-serif text-2xl tracking-tight-2 text-black">Summary</h2>
@@ -215,35 +213,43 @@ export default function BagView() {
                   <span className="trim block">
                     {itemCount === 0
                       ? "—"
-                      : freeShipping
-                        ? "Free standard"
-                        : `${formatPeso(shipping)} standard`}
+                      : !needsShipping
+                        ? "Not needed"
+                        : freeShipping
+                          ? "Free standard"
+                          : `${formatPeso(shipping)} standard`}
                   </span>
-                  <span aria-hidden className="size-0.75 rounded-full bg-black" />
-                  <span className="trim block">change at checkout</span>
+                  {needsShipping && itemCount > 0 && (
+                    <>
+                      <span aria-hidden className="size-0.75 rounded-full bg-black" />
+                      <span className="trim block">change at checkout</span>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
 
-            <div className="flex flex-col gap-4 rounded-md bg-surface-hero px-2 py-3">
-              <p className="font-mono text-sm text-brand">
-                {freeShipping ? (
-                  <>
-                    You’ve unlocked <b>free standard shipping</b>
-                  </>
-                ) : (
-                  <>
-                    Add <b>{formatPeso(remaining)}</b> more for <b>free standard shipping</b>
-                  </>
-                )}
-              </p>
-              <div className="h-1.75 overflow-hidden rounded-xs bg-line-soft">
-                <div
-                  className="h-full rounded-xs bg-brand transition-[width] duration-500"
-                  style={{ width: `${progress}%` }}
-                />
+            {needsShipping && (
+              <div className="flex flex-col gap-4 rounded-md bg-surface-hero px-2 py-3">
+                <p className="font-mono text-sm text-brand">
+                  {freeShipping ? (
+                    <>
+                      You’ve unlocked <b>free standard shipping</b>
+                    </>
+                  ) : (
+                    <>
+                      Add <b>{formatPeso(remaining)}</b> more for <b>free standard shipping</b>
+                    </>
+                  )}
+                </p>
+                <div className="h-1.75 overflow-hidden rounded-xs bg-line-soft">
+                  <div
+                    className="h-full rounded-xs bg-brand transition-[width] duration-500"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
               </div>
-            </div>
+            )}
 
             <form onSubmit={applyCode} className="flex flex-col gap-4.25">
               <label htmlFor="promo-code" className="font-mono text-base font-bold text-muted">
@@ -254,7 +260,7 @@ export default function BagView() {
                   id="promo-code"
                   value={code}
                   onChange={(e) => setCode(e.target.value)}
-                  placeholder="enter code"
+                  placeholder={promo ? promo.code : "enter code"}
                   className="h-9 min-w-0 flex-1 rounded-full border border-line-strong px-4 font-mono text-base text-ink outline-none placeholder:text-muted focus:border-brand"
                 />
                 <button

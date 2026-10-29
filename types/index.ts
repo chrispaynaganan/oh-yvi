@@ -69,6 +69,8 @@ export type Bundle = {
   description?: string;
   longDescription?: string;
   badge?: string;
+  /** Bundles are physical unless set to "digital" */
+  type?: "physical" | "digital";
   /** Occasion collections, used by the filter chips on /bundles */
   collectionSlugs?: string[];
   /** The bundle price; savings are calculated from the item prices */
@@ -86,4 +88,14 @@ export type Review = {
   /** ISO date */
   date: string;
   image?: string;
+};
+
+export type Address = {
+  label: string;
+  recipient: string;
+  phone: string;
+  line1: string;
+  city: string;
+  province: string;
+  postalCode: string;
 };
