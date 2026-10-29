@@ -32,6 +32,7 @@
   --color-tan: #b8a194;
   --color-success: #5ea321;
   --color-promo: #cd492f;
+  --color-save: #4d6935;
   --color-star: #a68a6d;
   --color-star-empty: #e8e5e3;
 
@@ -142,6 +143,27 @@
 /* Turns trimming off (needed where text is clipped, e.g. line-clamp) */
 @utility no-trim {
   text-box: normal;
+}
+
+/* Slim, inset scrollbar for panels that scroll on their own (the reviews panel) */
+@utility scrollbar-soft {
+  &::-webkit-scrollbar {
+    width: 18px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    margin-block: 20px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-placeholder);
+    border: 5px solid transparent;
+    border-radius: 9px;
+    background-clip: padding-box;
+  }
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-placeholder) transparent;
+  }
 }
 
 /* "expanded" = the occasion card is hovered or keyboard-focused.

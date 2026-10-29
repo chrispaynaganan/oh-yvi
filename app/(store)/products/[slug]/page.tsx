@@ -6,6 +6,11 @@ import ProductGallery from "@/components/product/ProductGallery";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import { collections } from "@/data/collections";
 import { products } from "@/data/products";
+import Recommendations from "@/components/product/Recommendations";
+import ProductCollections from "@/components/product/ProductCollections";
+import ReviewsSection from "@/components/product/ReviewsSection";
+import { bundles } from "@/data/bundles";
+import { reviews } from "@/data/reviews";
 
 type Params = Promise<{ slug: string }>;
 
@@ -42,13 +47,17 @@ async function ProductContent({ params }: { params: Params }) {
   const product = getProduct(slug);
   if (!product) notFound();
 
-  const category = collections.find(
+    const category = collections.find(
     (c) => c.kind === "category" && product.collectionSlugs.includes(c.slug),
   );
   const boughtWith = products.filter((p) => product.boughtWithSlugs?.includes(p.slug));
   const badges = [product.badge, product.type === "digital" ? "digital" : undefined].filter(
     (badge): badge is string => Boolean(badge),
   );
+  const productCollections = collections.filter((c) => product.collectionSlugs.includes(c.slug));
+  const productBundles = bundles.filter((b) => product.bundleIds?.includes(b.id));
+  const productReviews = reviews.filter((r) => r.productSlug === product.slug);
+  const recommendations = products.filter((p) => p.slug !== product.slug).slice(0, 4);
 
   return (
     <>
@@ -67,7 +76,11 @@ async function ProductContent({ params }: { params: Params }) {
         <ProductDetails product={product} boughtWith={boughtWith} />
       </div>
 
-      {/* Part 2: collections + bundles, ratings & reviews, recommendations */}
+            <ProductCollections collections={productCollections} bundles={productBundles} />
+
+      <ReviewsSection productSlug={product.slug} initialReviews={productReviews} />
+
+      <Recommendations products={recommendations} />
     </>
   );
 }

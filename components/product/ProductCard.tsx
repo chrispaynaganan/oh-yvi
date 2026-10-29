@@ -7,7 +7,13 @@ import CardActions from "@/components/product/CardActions";
 import { cn, formatPeso } from "@/lib/utils";
 import type { Product } from "@/types";
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({
+  product,
+  ctaLabel,
+}: {
+  product: Product;
+  ctaLabel?: string;
+}) {
   const [active, setActive] = useState(0);
   const { slug, name, description, price, images, status, badge, buttonLabel } = product;
   const href = `/products/${slug}`;
@@ -18,7 +24,7 @@ export default function ProductCard({ product }: { product: Product }) {
       ? "Out of Stock"
       : status === "preorder"
         ? "Pre-Order"
-        : `${buttonLabel} (${formatPeso(price)})`;
+      : `${ctaLabel ?? buttonLabel} (${formatPeso(price)})`;
 
   return (
     <article>

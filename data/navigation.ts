@@ -8,7 +8,7 @@ export const shopNav: NavLink[] = [
 
 export const groupNav: NavLink[] = [
   { label: "Collections", href: "/collections" },
-  { label: "Bundles", href: "/shop?type=bundle" },
+  { label: "Bundles", href: "/bundles" },
 ];
 
 export const categoryNav: NavLink[] = [
@@ -31,7 +31,7 @@ export const menuGroups: NavLink[][] = [
   ],
   [
     { label: "Collections", href: "/collections" },
-    { label: "Bundles", href: "/shop?type=bundle" },
+    { label: "Bundles", href: "/bundles" },
   ],
   [
     { label: "Journals", href: "/collections/journals" },

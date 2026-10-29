@@ -79,7 +79,7 @@ export const products: Product[] = [
     specs: [
       "120 GSM smooth writing paper",
       "Designed and packed in the Philippines",
-      "16 available in this demo",
+      "16 in stock",
     ],
     details: [
       {
@@ -88,11 +88,11 @@ export const products: Product[] = [
       },
       {
         title: "Shipping & returns",
-        body: "Demo orders include complimentary delivery over ₱2,500 and a sample seven-day returns window.",
+        body: "Orders include complimentary delivery over ₱2,500 and a seven-day returns window.",
       },
       {
         title: "Good to know",
-        body: "All products, stock levels, payments, and fulfillment details shown here are demonstration data.",
+        body: "Each journal is packed by hand, so small variations in the cloth cover are part of its character.",
       },
     ],
     boughtWithSlugs: ["vo-project-tracker-notepad", "habit-notes-mini-pad", "mini-calling-card-set"],

@@ -48,14 +48,40 @@ export type Collection = {
   bundleIds?: string[];
 };
 
-export type BundleItem = { name: string; price: number };
+export type BundleItem = {
+  name: string;
+  price: number;
+  /** Links the item to its product page and borrows its photo */
+  productSlug?: string;
+  image?: string;
+};
 
 export type Bundle = {
   id: string;
   slug: string;
   name: string;
+  /** Card photo */
   image: string;
-  /** The bundle price; "save" is calculated from the item prices */
+  /** Detail page gallery (defaults to the card photo) */
+  images?: string[];
+  description?: string;
+  longDescription?: string;
+  badge?: string;
+  /** Occasion collections, used by the filter chips on /bundles */
+  collectionSlugs?: string[];
+  /** The bundle price; savings are calculated from the item prices */
   price: number;
   items: BundleItem[];
+};
+
+export type Review = {
+  id: string;
+  productSlug: string;
+  rating: 1 | 2 | 3 | 4 | 5;
+  title: string;
+  body: string;
+  author: string;
+  /** ISO date */
+  date: string;
+  image?: string;
 };

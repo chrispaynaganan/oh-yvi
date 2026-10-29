@@ -3,26 +3,43 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import CardActions from "@/components/product/CardActions";
-import PromoTimer from "@/components/ui/PromoTimer";
 import { cn, formatPeso } from "@/lib/utils";
-import type { Product } from "@/types";
+import type { ProductStatus } from "@/types";
 
 // Height of the sticky announcement bar + header on desktop
 const HEADER_HEIGHT = 179;
 
-export default function ProductPurchase({ product }: { product: Product }) {
-  const { name, price, status, buttonLabel, images, promoEndsAt, stock } = product;
+type ProductPurchaseProps = {
+  name: string;
+  image: string;
+  unitPrice: number;
+  /** Button text before the price, e.g. "Buy this journal" */
+  ctaLabel: string;
+  status?: ProductStatus;
+  maxQuantity?: number;
+  /** Shown under the name in the sticky bar (promo timer or savings pill) */
+  pill?: React.ReactNode;
+};
+
+export default function ProductPurchase({
+  name,
+  image,
+  unitPrice,
+  ctaLabel,
+  status = "available",
+  maxQuantity = 99,
+  pill,
+}: ProductPurchaseProps) {
   const [quantity, setQuantity] = useState(1);
   const [showBar, setShowBar] = useState(false);
   const ctaRef = useRef<HTMLDivElement>(null);
 
   const isOut = status === "out_of_stock";
-  const maxQuantity = stock ?? 99;
   const ctaText = isOut
     ? "Out of Stock"
     : status === "preorder"
       ? "Pre-Order"
-      : `${buttonLabel} (${formatPeso(price * quantity)})`;
+      : `${ctaLabel} (${formatPeso(unitPrice * quantity)})`;
 
   // Show the bar once the buy buttons have scrolled up under the header
   useEffect(() => {
@@ -100,7 +117,7 @@ export default function ProductPurchase({ product }: { product: Product }) {
         <span>7-day returns policy</span>
       </p>
 
-      {/* Sticky product bar, tucked under the header until needed */}
+      {/* Sticky bar, tucked under the header until needed */}
       <div className="pointer-events-none fixed inset-x-0 top-44.75 z-30 h-34.75 overflow-hidden">
         <div
           inert={!showBar}
@@ -113,14 +130,14 @@ export default function ProductPurchase({ product }: { product: Product }) {
           <div className="mx-auto flex h-full max-w-site items-center justify-between px-15">
             <div className="flex items-center gap-8.75">
               <div className="relative size-26.5 shrink-0 overflow-hidden rounded-xl bg-placeholder">
-                <Image src={images[0]} alt="" fill sizes="106px" className="object-cover" />
+                <Image src={image} alt="" fill sizes="106px" className="object-cover" />
               </div>
               <div className="flex flex-col items-start gap-4">
                 <div className="flex items-center gap-6.75">
                   <p className="font-serif text-card-title whitespace-nowrap text-ink">{name}</p>
                   <CardActions name={name} actions={["wishlist", "share"]} />
                 </div>
-                {promoEndsAt && <PromoTimer endsAt={promoEndsAt} />}
+                {pill}
               </div>
             </div>
 

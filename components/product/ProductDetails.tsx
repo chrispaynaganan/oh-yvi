@@ -1,9 +1,7 @@
-import Image from "next/image";
-import Link from "next/link";
 import CardActions from "@/components/product/CardActions";
+import MiniItemList from "@/components/product/MiniItemList";
 import ProductPurchase from "@/components/product/ProductPurchase";
 import PromoTimer from "@/components/ui/PromoTimer";
-import { formatPeso } from "@/lib/utils";
 import type { Product } from "@/types";
 
 type ProductDetailsProps = {
@@ -13,11 +11,12 @@ type ProductDetailsProps = {
 
 export default function ProductDetails({ product, boughtWith }: ProductDetailsProps) {
   const { name, description, longDescription, specs, details, promoEndsAt } = product;
+  const promo = promoEndsAt ? <PromoTimer endsAt={promoEndsAt} /> : undefined;
 
   return (
     <div className="col-span-5 col-start-8">
       <div className="flex items-center justify-between">
-        {promoEndsAt ? <PromoTimer endsAt={promoEndsAt} /> : <span />}
+        {promo ?? <span />}
         <CardActions name={name} actions={["wishlist", "share"]} />
       </div>
 
@@ -53,37 +52,30 @@ export default function ProductDetails({ product, boughtWith }: ProductDetailsPr
       {boughtWith.length > 0 && (
         <section className="mt-13.5">
           <h2 className="font-serif text-lg text-ink">Usually Bought With</h2>
-          <ul className="mt-8 flex flex-col gap-3">
-            {boughtWith.map((item) => (
-              <li key={item.id} className="flex items-center justify-between gap-4">
-                <Link href={`/products/${item.slug}`} className="group flex items-center gap-3.5">
-                  <div className="relative size-13.75 shrink-0 overflow-hidden rounded-sm bg-placeholder">
-                    <Image src={item.images[0]} alt="" fill sizes="55px" className="object-cover" />
-                  </div>
-                  <div className="flex flex-col gap-3.75">
-                    <span className="trim block font-serif text-17 text-ink group-hover:text-brand">
-                      {item.name}
-                    </span>
-                    <span className="trim block font-mono text-xs text-muted">
-                      {formatPeso(item.price)}
-                    </span>
-                  </div>
-                </Link>
-                <button
-                  type="button"
-                  disabled={item.status === "out_of_stock"}
-                  aria-label={`Add ${item.name} to bag`}
-                  className="shrink-0 rounded-full border border-brand px-2.5 py-2 text-brand transition-colors hover:bg-brand hover:text-white disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-brand"
-                >
-                  <span className="trim block font-serif text-xs">Add</span>
-                </button>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-8">
+            <MiniItemList
+              items={boughtWith.map((item) => ({
+                key: item.id,
+                name: item.name,
+                price: item.price,
+                image: item.images[0],
+                href: `/products/${item.slug}`,
+                disabled: item.status === "out_of_stock",
+              }))}
+            />
+          </div>
         </section>
       )}
 
-      <ProductPurchase product={product} />
+      <ProductPurchase
+        name={name}
+        image={product.images[0]}
+        unitPrice={product.price}
+        ctaLabel={product.buttonLabel}
+        status={product.status}
+        maxQuantity={product.stock}
+        pill={promo}
+      />
     </div>
   );
 }
