@@ -14,7 +14,7 @@ export default function ProductDetails({ product, boughtWith }: ProductDetailsPr
   const promo = promoEndsAt ? <PromoTimer endsAt={promoEndsAt} /> : undefined;
 
   return (
-    <div className="col-span-5 col-start-8">
+    <div className="col-span-5 col-start-8 max-xl:col-span-6 max-xl:col-start-7">
       <div className="flex items-center justify-between">
         {promo ?? <span />}
           <CardActions
@@ -24,15 +24,15 @@ export default function ProductDetails({ product, boughtWith }: ProductDetailsPr
         />
       </div>
 
-      <h1 className="mt-7.75 font-serif text-product text-ink">{name}</h1>
-      <p className="no-trim mt-4.75 line-clamp-3 font-mono text-sm text-muted">
+      <h1 className="mt-7.75 font-serif text-product text-ink max-xl:mt-4.25 max-xl:text-product-sm">{name}</h1>
+      <p className="no-trim mt-4.75 line-clamp-3 font-mono text-sm text-muted max-xl:mt-4.25 max-xl:text-xs">
         {longDescription ?? description}
       </p>
 
       {specs && specs.length > 0 && (
-        <div className="mt-9.25 flex flex-col gap-4 rounded-2xl bg-surface-hero p-3.5 text-ink">
+        <div className="mt-9.25 flex flex-col gap-4 rounded-2xl bg-surface-hero p-3.5 text-ink max-xl:mt-3 max-xl:p-2.5">
           <h2 className="font-serif text-lg">Product specifications</h2>
-          <ul className="flex flex-col gap-4">
+          <ul className="flex flex-col gap-4 max-xl:gap-3">
             {specs.map((spec) => (
               <li key={spec} className="trim font-mono text-xs">
                 {spec}
@@ -43,20 +43,20 @@ export default function ProductDetails({ product, boughtWith }: ProductDetailsPr
       )}
 
       {details && details.length > 0 && (
-        <div className="mt-8.75 flex flex-col gap-9">
+        <div className="mt-8.75 flex flex-col gap-9 max-xl:mt-6.75 max-xl:gap-6">
           {details.map((detail) => (
-            <section key={detail.title} className="flex flex-col gap-4">
+            <section key={detail.title} className="flex flex-col gap-4 max-xl:gap-3">
               <h2 className="font-serif text-lg text-ink">{detail.title}</h2>
-              <p className="font-mono text-sm text-muted">{detail.body}</p>
+              <p className="font-mono text-sm text-muted max-xl:text-xs">{detail.body}</p>
             </section>
           ))}
         </div>
       )}
 
       {boughtWith.length > 0 && (
-        <section className="mt-13.5">
+        <section className="mt-13.5 max-xl:mt-11.25">
           <h2 className="font-serif text-lg text-ink">Usually Bought With</h2>
-          <div className="mt-8">
+          <div className="mt-8 max-xl:mt-7.5">
             <MiniItemList
               items={boughtWith.map((item) => ({
                 key: item.id,

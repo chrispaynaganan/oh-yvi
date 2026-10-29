@@ -87,7 +87,7 @@ export default function AuthForm({
   }
 
   return (
-    <div className="flex flex-col gap-5.5 rounded-2xl border border-line bg-white p-7 shadow-auth">
+    <div className="flex flex-col gap-5.5 rounded-2xl border border-line bg-white p-7 shadow-auth max-xl:p-4">
       <div className="flex flex-col gap-5">
         <h1 className="font-serif text-44 text-ink">{title}</h1>
         <p className="font-mono text-xs text-muted">{subtitle}</p>
@@ -136,7 +136,7 @@ export default function AuthForm({
           )}
         </form>
 
-        <div className="mt-11.25 flex flex-col gap-4">
+        <div className="mt-11.25 flex flex-col gap-4 max-xl:mt-7">
           <p className="text-center font-serif text-sm text-black">
             {isSignup ? "or sign-up via" : "or login via"}
           </p>
@@ -156,7 +156,7 @@ export default function AuthForm({
           </div>
         </div>
 
-        <p className="mt-11.25 text-center font-serif text-sm text-black">
+        <p className="mt-11.25 text-center font-serif text-sm text-black max-xl:mt-7">
           {isSignup ? "already have an account? " : "don’t have an account yet? "}
           <Link href={switchHref} className="font-bold underline transition-colors hover:text-brand">
             {isSignup ? "login" : "sign-up"}

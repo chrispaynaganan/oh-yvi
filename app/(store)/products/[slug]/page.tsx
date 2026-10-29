@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 export default function ProductPage({ params }: { params: Params }) {
   return (
-    <main className="mx-auto max-w-site px-15 pt-16.25 pb-10.75">
+    <main className="mx-auto max-w-site px-15 pt-16.25 pb-10.75 max-xl:px-6 max-xl:pt-5.5 max-xl:pb-0">
       <Suspense fallback={<ProductSkeleton />}>
         <ProductContent params={params} />
       </Suspense>
@@ -69,8 +69,8 @@ async function ProductContent({ params }: { params: Params }) {
         ]}
       />
 
-      <div data-fly-scope className="mt-9.25 grid grid-cols-12 items-start gap-x-5">
-        <div className="col-span-6 mt-13.25">
+      <div data-fly-scope className="mt-9.25 grid grid-cols-12 items-start gap-x-5 max-xl:mt-6.5">
+        <div className="col-span-6 mt-13.25 max-xl:mt-0">
           <ProductGallery images={product.images} name={product.name} badges={badges} />
         </div>
         <ProductDetails product={product} boughtWith={boughtWith} />

@@ -24,7 +24,7 @@ function Dot() {
 function FilesSection({ items, purchased }: { items: OrderItem[]; purchased: Date }) {
   return (
     <section>
-      <h2 className="font-serif text-30 tracking-tight-3 text-black">Your files</h2>
+      <h2 className="font-serif text-30 tracking-tight-3 text-black max-xl:text-2xl">Your files</h2>
       <p className="mt-5.5 w-142.25 font-mono text-base tracking-tight-2 text-muted">
         Your purchase is in your library, download it anytime in your account. Go to{" "}
         <Link href="/account/library" className="font-bold text-ink underline hover:text-brand">
@@ -95,9 +95,9 @@ function NextSteps({ order, purchased }: { order: Order; purchased: Date }) {
 
   return (
     <section>
-      <h2 className="font-serif text-30 tracking-tight-3 text-black">What happens next?</h2>
+      <h2 className="font-serif text-30 tracking-tight-3 text-black max-xl:text-2xl">What happens next?</h2>
 
-      <ol className="mt-11 grid grid-cols-4 gap-3">
+      <ol className="mt-11 grid grid-cols-4 gap-3 max-xl:mt-6.25">
         <li className="flex flex-col gap-4 rounded-lg bg-done p-2">
           <Image src="/icons/step-done-check.svg" alt="" width={25} height={25} className="size-6.25" unoptimized />
           <div className="flex flex-col gap-2.5">
@@ -119,7 +119,7 @@ function NextSteps({ order, purchased }: { order: Order; purchased: Date }) {
       </ol>
 
       {order.address && (
-        <div className="mt-16.75 grid grid-cols-2 gap-x-5">
+        <div className="mt-16.75 grid grid-cols-2 gap-x-5 max-xl:mt-8">
           <div>
             <p className="font-mono text-sm font-bold tracking-tight-2 text-muted">Delivering to</p>
             <p className="mt-5.5 flex items-center gap-2 font-mono text-sm tracking-tight-2 text-muted">
@@ -161,9 +161,9 @@ function Receipt({ order, purchased }: { order: Order; purchased: Date }) {
   ];
 
   return (
-    <section className="col-span-6 col-start-7 -mt-3.5">
+    <section className="col-span-6 col-start-7 -mt-3.5 max-xl:col-span-12 max-xl:col-start-1 max-xl:mt-11.75">
       <div className="flex items-center justify-between">
-        <h2 className="font-serif text-30 tracking-tight-3 text-black">Receipt</h2>
+        <h2 className="font-serif text-30 tracking-tight-3 text-black max-xl:text-28">Receipt</h2>
         <button
           type="button"
           onClick={() => window.print()}
@@ -250,27 +250,27 @@ export default function ConfirmationView() {
 
   return (
     <>
-      <h1 className="mt-9.25 font-serif text-product tracking-tight-3 text-black">
+      <h1 className="mt-9.25 font-serif text-product tracking-tight-3 text-black max-xl:text-36">
         Payment received.
         <br />
         Your product is ready!
       </h1>
 
-      <div className="mt-12.75 grid grid-cols-12 gap-x-5 gap-y-3 font-mono text-base tracking-tight-2 text-muted">
-        <p className="col-span-3">Order number: {order.id}</p>
-        <p className="col-span-4 col-start-4">Payment Method: {order.payment.label}</p>
-        <p className="col-span-3">Transaction ID: {order.transactionId}</p>
-        <p className="col-span-4 col-start-4">Date Purchased: {formatDate(purchased)}</p>
+      <div className="mt-12.75 grid grid-cols-12 gap-x-5 gap-y-3 font-mono text-base tracking-tight-2 text-muted max-xl:mt-7 max-xl:grid-cols-2">
+        <p className="col-span-3 max-xl:col-span-1">Order number: {order.id}</p>
+        <p className="col-span-4 col-start-4 max-xl:col-span-1 max-xl:col-start-auto">Payment Method: {order.payment.label}</p>
+        <p className="col-span-3 max-xl:col-span-1">Transaction ID: {order.transactionId}</p>
+        <p className="col-span-4 col-start-4 max-xl:col-span-1 max-xl:col-start-auto">Date Purchased: {formatDate(purchased)}</p>
       </div>
 
-      <div className="mt-14 grid grid-cols-12 items-start gap-x-5">
-        <div className="col-span-6 flex flex-col">
+      <div className="mt-14 grid grid-cols-12 items-start gap-x-5 max-xl:mt-8.5">
+        <div className="col-span-6 flex flex-col max-xl:col-span-12">
           <div className="flex flex-col gap-16">
             {digitalItems.length > 0 && <FilesSection items={digitalItems} purchased={purchased} />}
             {hasPhysical && <NextSteps order={order} purchased={purchased} />}
           </div>
 
-          <div className="mt-8 flex items-center gap-3 print:hidden">
+          <div className="mt-8 flex items-center gap-3 print:hidden max-xl:mt-5">
             {hasPhysical ? (
               <>
                 <Link

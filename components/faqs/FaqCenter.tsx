@@ -20,18 +20,18 @@ function AnswerPanel({
   onFeedback: (value: "yes" | "no") => void;
 }) {
   return (
-    <article className="col-span-8 col-start-5 flex flex-col gap-7.75 rounded-2xl border border-line-soft p-6">
+    <article className="col-span-8 col-start-5 flex flex-col gap-7.75 rounded-2xl border border-line-soft p-6 max-xl:col-span-1 max-xl:col-start-auto max-xl:px-4.25 max-xl:pt-5.25">
       <div className="flex flex-col gap-9">
         <div className="flex flex-col gap-3.5">
           <p className="font-mono text-sm text-muted">{categoryLabel.toLowerCase()}</p>
           <div className="flex flex-col gap-4">
-            <h3 className="font-serif text-28 text-black">{faq.question}</h3>
-            <p className="font-mono text-sm text-muted">{faq.answer}</p>
+            <h3 className="font-serif text-28 text-black max-xl:text-2xl">{faq.question}</h3>
+            <p className="font-mono text-sm text-muted max-xl:text-xs">{faq.answer}</p>
           </div>
         </div>
 
         {faq.steps && (
-          <ol className="grid grid-cols-4 gap-4">
+          <ol className="grid grid-cols-4 gap-4 max-xl:grid-cols-2 max-xl:gap-1.75">
             {faq.steps.map((step, i) => (
               <li key={step.title} className="flex flex-col gap-4 rounded-lg border border-line-soft p-4">
                 <span className="flex size-6.25 items-center justify-center rounded-full border border-line-soft">
@@ -108,8 +108,8 @@ export default function FaqCenter({ faqs, categories }: { faqs: Faq[]; categorie
 
   return (
     <>
-      <div className="mt-19.75 grid grid-cols-12 gap-x-5">
-        <label className="col-span-4 col-start-9 flex items-center gap-3 rounded-full bg-surface-muted p-4">
+      <div className="mt-19.75 grid grid-cols-12 gap-x-5 max-xl:mt-10.25">
+        <label className="col-span-4 col-start-9 flex max-xl:col-span-6 max-xl:col-start-1 items-center gap-3 rounded-full bg-surface-muted p-4">
           <Image src="/icons/search-dark.svg" alt="" width={17} height={17} className="size-4.25 shrink-0" unoptimized />
           <input
             type="search"
@@ -122,11 +122,12 @@ export default function FaqCenter({ faqs, categories }: { faqs: Faq[]; categorie
         </label>
       </div>
 
-      <section className="mt-8.75">
-        <h2 className="font-serif text-28 text-ink">Most asked</h2>
-        <div className="mt-11 grid grid-cols-3 gap-5">
+      <section className="mt-8.75 max-xl:mt-12.25">
+        <h2 className="font-serif text-28 text-ink max-xl:text-2xl">Most asked</h2>
+        {/* Tablet: cards scroll sideways */}
+        <div className="mt-11 grid grid-cols-3 gap-5 max-xl:scrollbar-none max-xl:mt-4.25 max-xl:-mr-6 max-xl:flex max-xl:snap-x max-xl:gap-5.25 max-xl:overflow-x-auto max-xl:pr-6">
           {mostAsked.map((faq) => (
-            <article key={faq.id} className="flex flex-col items-start gap-6 rounded-2xl border border-line p-5">
+            <article key={faq.id} className="flex flex-col items-start gap-6 rounded-2xl border border-line p-5 max-xl:w-70 max-xl:shrink-0 max-xl:snap-start max-xl:p-5.25">
               <div className="flex flex-col gap-4">
                 <h3 className="font-serif text-xl text-ink">{faq.question}</h3>
                 <p className="no-trim line-clamp-3 font-mono text-15 text-muted">{faq.answer}</p>
@@ -143,10 +144,10 @@ export default function FaqCenter({ faqs, categories }: { faqs: Faq[]; categorie
         </div>
       </section>
 
-      <section ref={browseRef} className="mt-39 scroll-mt-50">
+      <section ref={browseRef} className="mt-39 scroll-mt-50 max-xl:mt-14.5">
         <div className="flex items-center justify-between gap-6">
-          <h2 className="font-serif text-28 text-ink">Browse by Category</h2>
-          <div className="flex flex-wrap items-center justify-end gap-3">
+          <h2 className="font-serif text-28 text-ink max-xl:text-2xl">Browse by Category</h2>
+          <div className="flex flex-wrap items-center justify-end gap-3 max-xl:hidden">
             <FilterChip label="All" active={category === "all"} onClick={() => setCategory("all")} />
             {visibleCategories.map((c) => (
               <FilterChip key={c.id} label={c.label} active={category === c.id} onClick={() => setCategory(c.id)} />
@@ -157,8 +158,8 @@ export default function FaqCenter({ faqs, categories }: { faqs: Faq[]; categorie
           </div>
         </div>
 
-        <div className="mt-12.5 grid grid-cols-12 items-start gap-x-5">
-          <ul className="col-span-4 flex flex-col gap-2 rounded-4xl border border-line-soft p-4">
+        <div className="mt-12.5 grid grid-cols-12 items-start gap-x-5 max-xl:mt-6.75 max-xl:grid-cols-[282fr_483fr] max-xl:gap-x-5.25">
+          <ul className="col-span-4 flex flex-col gap-2 rounded-4xl border border-line-soft p-4 max-xl:col-span-1 max-xl:p-2.25">
             {list.map((faq) => {
               const active = selected?.id === faq.id;
               return (

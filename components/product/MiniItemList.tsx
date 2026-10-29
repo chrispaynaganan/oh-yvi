@@ -33,7 +33,7 @@ function ItemBody({ name, price, image }: Pick<MiniItem, "name" | "price" | "ima
 
 export default function MiniItemList({ items }: { items: MiniItem[] }) {
   return (
-    <ul className="flex flex-col gap-3">
+    <ul className="flex flex-col gap-3 max-xl:gap-4">
       {items.map((item) => (
         <li key={item.key} data-fly-scope className="flex items-center justify-between gap-4">
           {item.href ? (

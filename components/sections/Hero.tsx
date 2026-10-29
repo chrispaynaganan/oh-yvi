@@ -8,15 +8,15 @@ export default function Hero() {
 
   return (
         <section className="-mt-px overflow-hidden bg-surface-hero">
-      <div className="relative mx-auto h-184.25 max-w-site px-15 pt-42.25">
-        <div className="relative z-10 w-139.25">
-          <h1 className="font-serif text-display text-black">{hero.title}</h1>
+      <div className="relative mx-auto h-184.25 max-w-site px-15 pt-42.25 max-xl:h-129.25 max-xl:px-6.5 max-xl:pt-12.25">
+        <div className="relative z-10 w-139.25 max-xl:w-120.5">
+          <h1 className="font-serif text-display text-black max-xl:text-display-sm">{hero.title}</h1>
 
-          <p className="mt-6.75 w-135 font-mono text-base text-muted-2">
+          <p className="mt-6.75 w-135 font-mono text-base text-muted-2 max-xl:mt-5 max-xl:w-95.25 max-xl:text-sm">
             {hero.subtitle}
           </p>
 
-          <div className="mt-11.25 flex items-start gap-2.75">
+          <div className="mt-11.25 flex items-start gap-2.75 max-xl:mt-10">
             <Button href={hero.primaryCta.href} arrow>
               {hero.primaryCta.label}
             </Button>
@@ -25,7 +25,7 @@ export default function Hero() {
             </Button>
           </div>
 
-          <div className="mt-20.75 flex items-center gap-4">
+          <div className="mt-20.75 flex items-center gap-4 max-xl:mt-16.75">
             <div className="flex items-center">
               {avatars.map((src, i) => (
                 <div
@@ -56,13 +56,13 @@ export default function Hero() {
         </div>
 
         {/* Same position as Figma at 1512px; scales with the window below that */}
-        <div className="absolute top-23.25 left-[47.16%] aspect-802/562 w-[53.04%] shadow-hero">
+        <div className="absolute top-23.25 left-[47.16%] aspect-802/562 w-[53.04%] shadow-hero max-xl:top-42.25 max-xl:left-auto max-xl:-right-2.75 max-xl:w-115.25">
           <Image
             src={hero.image}
             alt={hero.imageAlt}
             fill
             priority
-            sizes="(min-width: 1512px) 802px, 53vw"
+            sizes="(min-width: 1512px) 802px, (min-width: 1280px) 53vw, 461px"
             className="object-cover"
           />
         </div>

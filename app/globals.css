@@ -79,6 +79,12 @@
   --text-17: 17px;
   --text-28: 28px;
 
+  --text-35: 35px;
+
+  --text-product-sm: 33px;
+  --text-product-sm--line-height: normal;
+  --text-product-sm--letter-spacing: -1.56px;
+
   --text-product: 52px;
   --text-product--line-height: normal;
   --text-product--letter-spacing: -1.56px;
@@ -87,6 +93,19 @@
   --text-display: 80px;
   --text-display--line-height: 75.264px;
   --text-display--letter-spacing: -3.456px;
+
+  /* Tablet versions of the named styles */
+  --text-display-sm: 70px;
+  --text-display-sm--line-height: 65.3px;
+  --text-display-sm--letter-spacing: -3.456px;
+
+  --text-section-sm: 32px;
+  --text-section-sm--line-height: normal;
+  --text-section-sm--letter-spacing: -1.68px;
+
+  --text-card-title-sm: 24px;
+  --text-card-title-sm--line-height: normal;
+  --text-card-title-sm--letter-spacing: -1.56px;
 
   --text-logo: 36px;
   --text-logo--line-height: 25.2px;
@@ -213,13 +232,16 @@
 }
 
 /* "expanded" = the occasion card is hovered or keyboard-focused.
-   Works on the card itself and on anything inside it. */
+   Works on the card itself and on anything inside it.
+   Desktop only (xl and up): on tablets the cards stay still. */
 @custom-variant expanded {
-  &:is(:hover, :focus-visible) {
-    @slot;
-  }
-  :is(.occasion:hover, .occasion:focus-visible) & {
-    @slot;
+  @media (width >= 80rem) {
+    &:is(:hover, :focus-visible) {
+      @slot;
+    }
+    :is(.occasion:hover, .occasion:focus-visible) & {
+      @slot;
+    }
   }
 }
 

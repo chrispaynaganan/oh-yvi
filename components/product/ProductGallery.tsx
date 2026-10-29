@@ -35,7 +35,7 @@ export default function ProductGallery({ images, name, badges }: ProductGalleryP
     <div
       data-fly-source
       onPointerMove={followPointer}
-      className="relative aspect-square overflow-hidden rounded-3xl bg-placeholder"
+      className="relative aspect-square overflow-hidden rounded-3xl bg-placeholder max-xl:rounded-2xl"
     >
       <div
         className="absolute inset-0 transition-transform duration-300 ease-out"
@@ -46,16 +46,16 @@ export default function ProductGallery({ images, name, badges }: ProductGalleryP
           alt={`${name}, photo ${index + 1} of ${images.length}`}
           fill
           priority
-          sizes="(min-width: 1512px) 687px, 46vw"
+          sizes="(min-width: 1512px) 687px, (min-width: 1280px) 46vw, 383px"
           className="object-cover"
         />
       </div>
 
       {badges.length > 0 && (
-        <div className="pointer-events-none absolute top-7.5 left-7.5 flex gap-3.25">
+        <div className="pointer-events-none absolute top-7.5 left-7.5 flex gap-3.25 max-xl:top-3 max-xl:left-2.5 max-xl:gap-1.75">
           {badges.map((badge) => (
-            <span key={badge} className="rounded-xl bg-white px-3 py-2.5 shadow-badge-lg">
-              <span className="trim block font-mono text-xs font-bold tracking-label whitespace-nowrap text-brand">
+            <span key={badge} className="rounded-xl bg-white px-3 py-2.5 shadow-badge-lg max-xl:p-2">
+              <span className="trim block font-mono text-xs font-bold tracking-label whitespace-nowrap text-brand max-xl:text-10">
                 {badge}
               </span>
             </span>
@@ -69,7 +69,7 @@ export default function ProductGallery({ images, name, badges }: ProductGalleryP
             type="button"
             aria-label="Previous photo"
             onClick={() => goTo(index - 1)}
-            className="absolute top-1/2 left-7.5 size-12.5 -translate-y-1/2 transition-transform hover:scale-105"
+            className="absolute top-1/2 left-7.5 size-12.5 -translate-y-1/2 max-xl:left-2.5 max-xl:size-10 transition-transform hover:scale-105"
           >
             <Image src="/icons/gallery-arrow.svg" alt="" fill unoptimized />
           </button>
@@ -77,12 +77,12 @@ export default function ProductGallery({ images, name, badges }: ProductGalleryP
             type="button"
             aria-label="Next photo"
             onClick={() => goTo(index + 1)}
-            className="absolute top-1/2 right-7.5 size-12.5 -translate-y-1/2 transition-transform hover:scale-105"
+            className="absolute top-1/2 right-7.5 size-12.5 -translate-y-1/2 max-xl:right-2.75 max-xl:size-10 transition-transform hover:scale-105"
           >
             <Image src="/icons/gallery-arrow.svg" alt="" fill unoptimized className="rotate-180" />
           </button>
 
-          <div className="absolute bottom-11.75 left-11.75 flex gap-2.25">
+          <div className="absolute bottom-11.75 left-11.75 flex gap-2.25 max-xl:bottom-4.25 max-xl:left-2.5 max-xl:gap-1">
             {images.map((_, i) => (
               <button
                 key={i}
@@ -91,7 +91,7 @@ export default function ProductGallery({ images, name, badges }: ProductGalleryP
                 aria-current={i === index}
                 onClick={() => goTo(i)}
                 className={cn(
-                  "size-4 rounded-full transition-colors",
+                  "size-4 rounded-full transition-colors max-xl:size-2",
                   i === index ? "bg-white" : "bg-white/50 hover:bg-white/80",
                 )}
               />
@@ -100,13 +100,13 @@ export default function ProductGallery({ images, name, badges }: ProductGalleryP
         </>
       )}
 
-      <div className="absolute right-7.5 bottom-7.5 flex gap-4">
+      <div className="absolute right-7.5 bottom-7.5 flex gap-4 max-xl:right-2.75 max-xl:bottom-3.5 max-xl:gap-1.75">
         <button
           type="button"
           aria-label="Zoom out"
           disabled={zoom === 0}
           onClick={() => setZoom((z) => Math.max(0, z - 1))}
-          className="relative size-12.5 transition-opacity disabled:opacity-50"
+          className="relative size-12.5 transition-opacity disabled:opacity-50 max-xl:size-10"
         >
           <span className="absolute inset-[-24%_-32%_-40%_-32%]">
             <Image src="/icons/zoom-out.svg" alt="" fill unoptimized />
@@ -117,7 +117,7 @@ export default function ProductGallery({ images, name, badges }: ProductGalleryP
           aria-label="Zoom in"
           disabled={zoom === ZOOM_LEVELS.length - 1}
           onClick={() => setZoom((z) => Math.min(ZOOM_LEVELS.length - 1, z + 1))}
-          className="relative size-12.5 transition-opacity disabled:opacity-50"
+          className="relative size-12.5 transition-opacity disabled:opacity-50 max-xl:size-10"
         >
           <span className="absolute inset-[-24%_-32%_-40%_-32%]">
             <Image src="/icons/zoom-in.svg" alt="" fill unoptimized />

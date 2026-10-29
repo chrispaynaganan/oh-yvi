@@ -21,7 +21,7 @@ export default function BundleCard(bundle: Bundle) {
             src={image}
             alt={name}
             fill
-            sizes="(min-width: 1512px) 451px, 30vw"
+            sizes="(min-width: 1512px) 451px, (min-width: 1280px) 30vw, 383px"
             className="object-cover"
           />
         </Link>
@@ -29,11 +29,11 @@ export default function BundleCard(bundle: Bundle) {
           name={name}
           interestKey={`bundle:${slug}`}
           bagKey={`bundle:${slug}`}
-          className="absolute top-5.25 right-5.25"
+          className="absolute top-5.25 right-5.25 max-xl:top-3.5 max-xl:right-4.25"
         />
       </div>
 
-      <div className="flex flex-1 flex-col justify-between gap-7 p-4">
+      <div className="flex flex-1 flex-col justify-between gap-7 p-4 max-xl:px-2.5">
         <div className="flex flex-col gap-7">
           <Link href={href} className="transition-colors hover:text-brand">
             <h3 className="font-serif text-lg text-ink">{name}</h3>

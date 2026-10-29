@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 
 export default function ArticlesPage() {
   return (
-    <main className="mx-auto max-w-site px-15 pt-16.25">
+    <main className="mx-auto max-w-site px-15 pt-16.25 max-xl:px-6.5 max-xl:pt-6.25">
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Articles" }]} />
-      <h1 className="mt-18.5 font-serif text-38 text-ink">Stories, guides, and updates</h1>
+      <h1 className="mt-18.5 font-serif text-38 text-ink max-xl:mt-11">Stories, guides, and updates</h1>
       <Suspense fallback={<div aria-hidden className="h-200" />}>
         <ArticlesBrowser articles={articles} />
       </Suspense>

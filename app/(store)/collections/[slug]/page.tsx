@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import BundleCard from "@/components/product/BundleCard";
-import ProductGrid from "@/components/product/ProductGrid";
+import ExpandableProductGrid from "@/components/product/ExpandableProductGrid";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import { bundles } from "@/data/bundles";
 import { collections } from "@/data/collections";
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 /* The shared "pad": the same for every collection, so it can be prefetched once */
 export default function CollectionPage({ params }: { params: Params }) {
   return (
-    <main className="mx-auto max-w-site px-15 pt-16.25 pb-14.75">
+    <main className="mx-auto max-w-site px-15 pt-16.25 pb-14.75 max-xl:px-6 max-xl:pt-8 max-xl:pb-0">
       <Suspense fallback={<CollectionSkeleton />}>
         <CollectionContent params={params} />
       </Suspense>
@@ -63,20 +63,20 @@ async function CollectionContent({ params }: { params: Params }) {
         {collection.heading ?? collection.name}
       </h1>
 
-      <div className="mt-8.25 grid grid-cols-12 gap-x-5">
-        <p className="col-span-4 font-mono text-sm text-muted">
+      <div className="mt-8.25 grid grid-cols-12 gap-x-5 max-xl:mt-8">
+        <p className="col-span-4 font-mono text-sm text-muted max-xl:col-span-6">
           {collection.intro ?? collection.description}
         </p>
         {collection.aside && (
-          <p className="col-span-4 col-start-6 font-mono text-sm text-muted">
+          <p className="col-span-4 col-start-6 font-mono text-sm text-muted max-xl:col-span-6 max-xl:col-start-7">
             {collection.aside}
           </p>
         )}
       </div>
 
-      <section aria-label="Products" className="mt-18">
+      <section aria-label="Products" className="mt-18 max-xl:mt-13.75">
         {collectionProducts.length > 0 ? (
-          <ProductGrid products={collectionProducts} />
+          <ExpandableProductGrid products={collectionProducts} />
         ) : (
             <EmptyState
             className="mt-10.5"
@@ -87,9 +87,9 @@ async function CollectionContent({ params }: { params: Params }) {
       </section>
 
       {collectionBundles.length > 0 && (
-        <section className="mt-25.5">
-          <h2 className="font-serif text-38 text-ink">Bundles that fit this collection</h2>
-          <div className="mt-7.5 grid grid-cols-3 gap-5">
+        <section className="mt-25.5 max-xl:mt-18.25">
+          <h2 className="font-serif text-38 text-ink max-xl:text-32">Bundles that fit this collection</h2>
+          <div className="mt-7.5 grid grid-cols-3 gap-5 max-xl:mt-7.25 max-xl:grid-cols-2">
             {collectionBundles.map((bundle) => (
               <BundleCard key={bundle.id} {...bundle} />
             ))}
@@ -110,7 +110,7 @@ function CollectionSkeleton() {
         <div className="col-span-4 h-22.5 rounded-xs bg-surface-muted" />
         <div className="col-span-4 col-start-6 h-18.5 rounded-xs bg-surface-muted" />
       </div>
-      <div className="mt-18 grid grid-cols-4 gap-5">
+      <div className="mt-18 grid grid-cols-4 gap-5 max-xl:mt-13.75 max-xl:grid-cols-3 max-xl:gap-x-3.75">
         {Array.from({ length: 4 }, (_, i) => (
           <div key={i} className="aspect-square rounded-2xl bg-surface-muted" />
         ))}

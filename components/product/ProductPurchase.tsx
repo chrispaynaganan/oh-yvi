@@ -10,8 +10,9 @@ import type { InterestKey } from "@/lib/interests";
 import { cn, formatPeso } from "@/lib/utils";
 import type { ProductStatus } from "@/types";
 
-// Height of the sticky announcement bar + header on desktop
+// Height of the sticky announcement bar + header (desktop / tablet)
 const HEADER_HEIGHT = 179;
+const HEADER_HEIGHT_TABLET = 162;
 
 type ProductPurchaseProps = {
   name: string;
@@ -60,11 +61,12 @@ export default function ProductPurchase({
   useEffect(() => {
     const target = ctaRef.current;
     if (!target) return;
+    const header = window.matchMedia("(min-width: 80rem)").matches ? HEADER_HEIGHT : HEADER_HEIGHT_TABLET;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setShowBar(!entry.isIntersecting && entry.boundingClientRect.top < HEADER_HEIGHT);
+        setShowBar(!entry.isIntersecting && entry.boundingClientRect.top < header);
       },
-      { rootMargin: `-${HEADER_HEIGHT}px 0px 0px 0px` },
+      { rootMargin: `-${header}px 0px 0px 0px` },
     );
     observer.observe(target);
     return () => observer.disconnect();
@@ -79,18 +81,18 @@ export default function ProductPurchase({
 
   return (
     <>
-      <div className="mt-5.25 flex items-center justify-end gap-3.75">
+      <div className="mt-5.25 flex items-center justify-end gap-3.75 max-xl:mt-11.25">
         <span className="trim block font-mono text-11 text-ink">Quantity</span>
         <QuantityStepper value={quantity} onChange={setQuantity} max={maxQuantity} />
       </div>
 
-      <div ref={ctaRef} className="mt-3 flex gap-4">
+      <div ref={ctaRef} className="mt-3 flex gap-4 max-xl:gap-5">
         <button
           type="button"
           aria-label={`Add ${name} to bag`}
           disabled={isOut}
           onClick={addFrom}
-          className="relative h-10 w-25 shrink-0 transition-opacity hover:opacity-80 disabled:opacity-40"
+          className="relative h-10 w-25 shrink-0 transition-opacity hover:opacity-80 disabled:opacity-40 max-xl:w-20.25"
         >
           <Image src="/icons/add-to-bag-wide.svg" alt="" fill unoptimized />
         </button>
@@ -99,14 +101,14 @@ export default function ProductPurchase({
         </button>
       </div>
 
-      <p className="no-trim mt-4.25 flex items-center gap-2 font-mono text-9 text-muted">
+      <p className="no-trim mt-4.25 flex items-center gap-2 font-mono text-9 text-muted max-xl:mt-3">
         <span>Complimentary delivery over ₱2,500</span>
         <span aria-hidden className="size-0.75 rounded-full bg-muted" />
         <span>7-day returns policy</span>
       </p>
 
       {/* Sticky bar, tucked under the header until needed */}
-      <div className="pointer-events-none fixed inset-x-0 top-44.75 z-30 h-34.75 overflow-hidden">
+      <div className="pointer-events-none fixed inset-x-0 top-44.75 z-30 h-34.75 overflow-hidden max-xl:top-40.5 max-xl:h-19.5">
         <div
           inert={!showBar}
           aria-hidden={!showBar}
@@ -115,18 +117,20 @@ export default function ProductPurchase({
             showBar ? "translate-y-0" : "-translate-y-full",
           )}
         >
-          <div data-fly-scope className="mx-auto flex h-full max-w-site items-center justify-between px-15">
-            <div className="flex items-center gap-8.75">
-              <div data-fly-source className="relative size-26.5 shrink-0 overflow-hidden rounded-xl bg-placeholder">
+          <div data-fly-scope className="mx-auto flex h-full max-w-site items-center justify-between px-15 max-xl:px-6.5">
+            <div className="flex items-center gap-8.75 max-xl:gap-4">
+              <div data-fly-source className="relative size-26.5 shrink-0 overflow-hidden rounded-xl bg-placeholder max-xl:size-12.5 max-xl:rounded-md">
                 <Image src={image} alt="" fill sizes="106px" className="object-cover" />
               </div>
-              <div className="flex flex-col items-start gap-4">
+              <div className="flex flex-col items-start gap-4 max-xl:gap-2.5">
                 <div className="flex items-center gap-6.75">
-                  <p className="font-serif text-card-title whitespace-nowrap text-ink">{name}</p>
-                  <CardActions name={name} interestKey={interestKey} actions={["wishlist", "share"]} />
+                  <p className="font-serif text-card-title whitespace-nowrap text-ink max-xl:text-xl max-xl:tracking-tight-2">{name}</p>
+                  <CardActions name={name} interestKey={interestKey} actions={["wishlist", "share"]} className="max-xl:hidden" />
                 </div>
                 {pill}
               </div>
+              {/* Tablet: the icons sit after the name and timer */}
+              <CardActions name={name} interestKey={interestKey} actions={["wishlist", "share"]} className="xl:hidden" />
             </div>
 
             <div className="flex items-center gap-2.5">
@@ -135,11 +139,11 @@ export default function ProductPurchase({
                 aria-label={`Add ${name} to bag`}
                 disabled={isOut}
                 onClick={addFrom}
-                className="relative h-10 w-14.75 transition-opacity hover:opacity-80 disabled:opacity-40"
+                className="relative h-10 w-14.75 transition-opacity hover:opacity-80 disabled:opacity-40 max-xl:h-9 max-xl:w-13.75"
               >
                 <Image src="/icons/add-to-bag-compact.svg" alt="" fill unoptimized />
               </button>
-              <button type="button" disabled={isOut} onClick={buyNow} className={cn(buyButtonClass, "px-4.25")}>
+              <button type="button" disabled={isOut} onClick={buyNow} className={cn(buyButtonClass, "px-4.25 max-xl:px-3.5")}>
                 <span className="trim block font-serif text-sm whitespace-nowrap">{ctaText}</span>
               </button>
             </div>

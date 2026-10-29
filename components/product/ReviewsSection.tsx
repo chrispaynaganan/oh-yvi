@@ -146,17 +146,20 @@ export default function ReviewsSection({
   }
 
   return (
-        <section id="reviews" className="mt-13.25 scroll-mt-50">
-      <h2 className="font-serif text-28 text-ink">Ratings &amp; Reviews</h2>
+        <section id="reviews" className="mt-13.25 scroll-mt-50 max-xl:mt-10.75">
+      {/* Tablet: title and filters share one row */}
+      <div className="max-xl:flex max-xl:items-center max-xl:justify-between">
+      <h2 className="font-serif text-28 text-ink max-xl:text-2xl">Ratings &amp; Reviews</h2>
 
-      <div className="mt-7.25 flex items-center gap-11">
+      <div className="mt-7.25 flex items-center gap-11 max-xl:mt-0 max-xl:gap-8">
         <FilterSelect label="Rating" value={ratingFilter} onChange={setRatingFilter} options={RATING_OPTIONS} />
         <FilterSelect label="Sort" value={sort} onChange={setSort} options={SORT_OPTIONS} />
       </div>
+      </div>
 
-      <div className="mt-10.25 grid grid-cols-12 items-start gap-x-5">
+      <div className="mt-10.25 grid grid-cols-12 items-start gap-x-5 max-xl:mt-4.25">
         {/* Write a review */}
-        <form onSubmit={handleSubmit} className="col-span-5 flex flex-col">
+        <form onSubmit={handleSubmit} className="col-span-5 flex flex-col max-xl:col-span-6">
           <p className="font-serif text-sm text-ink">
             {reviews.length === 0 ? "Be the first to share your thoughts." : "Share your thoughts."}
           </p>
@@ -223,7 +226,7 @@ export default function ReviewsSection({
         </form>
 
         {/* Reviews panel: fixed height, scrolls on its own */}
-        <div className="col-span-7 col-start-6 h-90.5 overflow-hidden rounded-2xl border border-line-strong">
+        <div className="col-span-7 col-start-6 h-90.5 overflow-hidden rounded-2xl border border-line-strong max-xl:col-span-6 max-xl:col-start-7 max-xl:mt-15.5 max-xl:h-64.75">
           {shown.length === 0 ? (
             <div className="flex h-full items-center justify-center p-2.5">
               <p className="text-center font-serif text-sm text-muted">
