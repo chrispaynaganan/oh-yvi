@@ -64,6 +64,7 @@ async function BundleContent({ params }: { params: Params }) {
       image: item.image ?? product?.images[0],
       href: product ? `/products/${product.slug}` : undefined,
       disabled: product?.status === "out_of_stock",
+      bagKey: product ? (`product:${product.slug}` as const) : undefined,
     };
   });
 
@@ -86,7 +87,7 @@ async function BundleContent({ params }: { params: Params }) {
         ]}
       />
 
-      <div className="mt-9.25 grid grid-cols-12 items-start gap-x-5">
+      <div data-fly-scope className="mt-9.25 grid grid-cols-12 items-start gap-x-5">
         <div className="col-span-6 mt-13.25">
           <ProductGallery
             images={images}
@@ -124,6 +125,7 @@ async function BundleContent({ params }: { params: Params }) {
             ctaLabel="Buy this bundle"
             pill={pill}
             interestKey={`bundle:${bundle.slug}`}
+            bagKey={`bundle:${bundle.slug}`}
           />
         </div>
       </div>

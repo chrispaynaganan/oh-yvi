@@ -69,7 +69,7 @@ async function ProductContent({ params }: { params: Params }) {
         ]}
       />
 
-      <div className="mt-9.25 grid grid-cols-12 items-start gap-x-5">
+      <div data-fly-scope className="mt-9.25 grid grid-cols-12 items-start gap-x-5">
         <div className="col-span-6 mt-13.25">
           <ProductGallery images={product.images} name={product.name} badges={badges} />
         </div>

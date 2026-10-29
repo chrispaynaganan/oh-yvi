@@ -25,6 +25,8 @@ export type Product = {
   promoEndsAt?: string;
   /** Most a customer can pick in the quantity stepper */
   stock?: number;
+  /** Short option labels shown in the bag, e.g. ["A5", "Clothbound"] */
+  options?: string[];
 };
 
 export type CollectionKind = "category" | "occasion";

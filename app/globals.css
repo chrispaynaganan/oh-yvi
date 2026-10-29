@@ -34,6 +34,7 @@
   --color-promo: #cd492f;
   --color-save: #4d6935;
   --color-heart: #c62f2f;
+  --color-line-dark: #949494;
   --color-star: #a68a6d;
   --color-star-empty: #e8e5e3;
 
@@ -55,6 +56,8 @@
   --text-21: 21px;
   --text-25: 25px;
   --text-50: 50px;
+  --text-29: 29px;
+  --text-30: 30px;
   --text-38: 38px;
   --text-15: 15px;
   --text-17: 17px;
@@ -108,6 +111,7 @@
   --radius-xl: 20px;
   --radius-2xl: 24px;
   --radius-3xl: 36px;
+  --radius-4xl: 32px;
 
   /* ===== Shadows ===== */
   --shadow-hero: 6px 6px 25px 0 rgb(0 0 0 / 0.15);

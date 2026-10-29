@@ -1,9 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import CardActions from "@/components/product/CardActions";
 import { bundleTotals } from "@/lib/bundles";
 import { formatPeso } from "@/lib/utils";
 import type { Bundle } from "@/types";
+import { addToBag } from "@/lib/bag";
 
 export default function BundleCard(bundle: Bundle) {
   const { slug, name, image, price, items } = bundle;
@@ -11,8 +14,8 @@ export default function BundleCard(bundle: Bundle) {
   const href = `/bundles/${slug}`;
 
   return (
-    <article className="flex flex-col overflow-hidden rounded-2xl border border-line-soft">
-      <div className="relative h-38.5 shrink-0 bg-placeholder">
+    <article data-fly-scope className="flex flex-col overflow-hidden rounded-2xl border border-line-soft">
+      <div data-fly-source className="relative h-38.5 shrink-0 bg-placeholder">
         <Link href={href} aria-label={name} className="absolute inset-0">
           <Image
             src={image}
@@ -25,6 +28,7 @@ export default function BundleCard(bundle: Bundle) {
         <CardActions
           name={name}
           interestKey={`bundle:${slug}`}
+          bagKey={`bundle:${slug}`}
           className="absolute top-5.25 right-5.25"
         />
       </div>
@@ -61,6 +65,7 @@ export default function BundleCard(bundle: Bundle) {
 
         <button
           type="button"
+          onClick={(e) => addToBag(`bundle:${slug}`, 1, e.currentTarget)}
           className="flex w-full items-center justify-center rounded-full bg-brand-soft px-4 py-3 text-white transition-opacity hover:opacity-90"
         >
           <span className="trim block font-serif text-base">Get this bundle</span>

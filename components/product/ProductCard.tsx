@@ -6,6 +6,7 @@ import { useState } from "react";
 import CardActions from "@/components/product/CardActions";
 import { cn, formatPeso } from "@/lib/utils";
 import type { Product } from "@/types";
+import { addToBag } from "@/lib/bag";
 
 export default function ProductCard({
   product,
@@ -27,8 +28,8 @@ export default function ProductCard({
       : `${ctaLabel ?? buttonLabel} (${formatPeso(price)})`;
 
   return (
-    <article>
-      <div className="relative aspect-square overflow-hidden rounded-2xl bg-placeholder">
+    <article data-fly-scope>
+      <div data-fly-source className="relative aspect-square overflow-hidden rounded-2xl bg-placeholder">
         <Link href={href} aria-label={name} className="absolute inset-0">
           <Image
             src={images[active]}
@@ -51,6 +52,7 @@ export default function ProductCard({
         <CardActions
           name={name}
           interestKey={`product:${slug}`}
+          bagKey={`product:${slug}`}
           disableAdd={isOut}
           className="absolute top-5 right-4.75"
         />
@@ -82,6 +84,7 @@ export default function ProductCard({
       <button
         type="button"
         disabled={isOut}
+        onClick={(e) => addToBag(`product:${slug}`, 1, e.currentTarget)}
         className={cn(
           "mt-6.75 flex w-full items-center justify-center rounded-full px-4 py-3 font-serif text-base transition-opacity",
           isOut

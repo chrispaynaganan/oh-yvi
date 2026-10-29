@@ -1,11 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import CardActions from "@/components/product/CardActions";
+import QuantityStepper from "@/components/ui/QuantityStepper";
+import { addToBag, type BagKey } from "@/lib/bag";
+import type { InterestKey } from "@/lib/interests";
 import { cn, formatPeso } from "@/lib/utils";
 import type { ProductStatus } from "@/types";
-import type { InterestKey } from "@/lib/interests";
 
 // Height of the sticky announcement bar + header on desktop
 const HEADER_HEIGHT = 179;
@@ -16,6 +19,7 @@ type ProductPurchaseProps = {
   unitPrice: number;
   /** Button text before the price, e.g. "Buy this journal" */
   ctaLabel: string;
+  bagKey: BagKey;
   status?: ProductStatus;
   maxQuantity?: number;
   /** Shown under the name in the sticky bar (promo timer or savings pill) */
@@ -28,11 +32,13 @@ export default function ProductPurchase({
   image,
   unitPrice,
   ctaLabel,
+  bagKey,
   status = "available",
   maxQuantity = 99,
   pill,
   interestKey,
 }: ProductPurchaseProps) {
+  const router = useRouter();
   const [quantity, setQuantity] = useState(1);
   const [showBar, setShowBar] = useState(false);
   const ctaRef = useRef<HTMLDivElement>(null);
@@ -43,6 +49,12 @@ export default function ProductPurchase({
     : status === "preorder"
       ? "Pre-Order"
       : `${ctaLabel} (${formatPeso(unitPrice * quantity)})`;
+
+  const addFrom = (e: MouseEvent<HTMLButtonElement>) => addToBag(bagKey, quantity, e.currentTarget);
+  const buyNow = (e: MouseEvent<HTMLButtonElement>) => {
+    addToBag(bagKey, quantity, e.currentTarget);
+    window.setTimeout(() => router.push("/bag"), 950); // let the photocard land first
+  };
 
   // Show the bar once the buy buttons have scrolled up under the header
   useEffect(() => {
@@ -67,49 +79,22 @@ export default function ProductPurchase({
 
   return (
     <>
-      {/* Quantity */}
       <div className="mt-5.25 flex items-center justify-end gap-3.75">
-        <span id="quantity-label" className="trim block font-mono text-11 text-ink">
-          Quantity
-        </span>
-        <div role="group" aria-labelledby="quantity-label" className="flex items-center">
-          <button
-            type="button"
-            aria-label="Decrease quantity"
-            disabled={quantity <= 1}
-            onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-            className="relative size-10 transition-opacity disabled:opacity-40"
-          >
-            <Image src="/icons/qty-minus.svg" alt="" fill unoptimized />
-          </button>
-          <span aria-live="polite" className="flex size-10 items-center justify-center">
-            <span className="trim block font-mono text-xl tracking-tight-2 text-black">
-              {quantity}
-            </span>
-          </span>
-          <button
-            type="button"
-            aria-label="Increase quantity"
-            disabled={quantity >= maxQuantity}
-            onClick={() => setQuantity((q) => Math.min(maxQuantity, q + 1))}
-            className="relative size-10 transition-opacity disabled:opacity-40"
-          >
-            <Image src="/icons/qty-plus.svg" alt="" fill unoptimized />
-          </button>
-        </div>
+        <span className="trim block font-mono text-11 text-ink">Quantity</span>
+        <QuantityStepper value={quantity} onChange={setQuantity} max={maxQuantity} />
       </div>
 
-      {/* Buttons */}
       <div ref={ctaRef} className="mt-3 flex gap-4">
         <button
           type="button"
           aria-label={`Add ${name} to bag`}
           disabled={isOut}
+          onClick={addFrom}
           className="relative h-10 w-25 shrink-0 transition-opacity hover:opacity-80 disabled:opacity-40"
         >
           <Image src="/icons/add-to-bag-wide.svg" alt="" fill unoptimized />
         </button>
-        <button type="button" disabled={isOut} className={cn(buyButtonClass, "flex-1 px-4")}>
+        <button type="button" disabled={isOut} onClick={buyNow} className={cn(buyButtonClass, "flex-1 px-4")}>
           <span className="trim block font-serif text-sm">{ctaText}</span>
         </button>
       </div>
@@ -130,15 +115,15 @@ export default function ProductPurchase({
             showBar ? "translate-y-0" : "-translate-y-full",
           )}
         >
-          <div className="mx-auto flex h-full max-w-site items-center justify-between px-15">
+          <div data-fly-scope className="mx-auto flex h-full max-w-site items-center justify-between px-15">
             <div className="flex items-center gap-8.75">
-              <div className="relative size-26.5 shrink-0 overflow-hidden rounded-xl bg-placeholder">
+              <div data-fly-source className="relative size-26.5 shrink-0 overflow-hidden rounded-xl bg-placeholder">
                 <Image src={image} alt="" fill sizes="106px" className="object-cover" />
               </div>
               <div className="flex flex-col items-start gap-4">
                 <div className="flex items-center gap-6.75">
                   <p className="font-serif text-card-title whitespace-nowrap text-ink">{name}</p>
-                    <CardActions name={name} interestKey={interestKey} actions={["wishlist", "share"]} />
+                  <CardActions name={name} interestKey={interestKey} actions={["wishlist", "share"]} />
                 </div>
                 {pill}
               </div>
@@ -149,11 +134,12 @@ export default function ProductPurchase({
                 type="button"
                 aria-label={`Add ${name} to bag`}
                 disabled={isOut}
+                onClick={addFrom}
                 className="relative h-10 w-14.75 transition-opacity hover:opacity-80 disabled:opacity-40"
               >
                 <Image src="/icons/add-to-bag-compact.svg" alt="" fill unoptimized />
               </button>
-              <button type="button" disabled={isOut} className={cn(buyButtonClass, "px-4.25")}>
+              <button type="button" disabled={isOut} onClick={buyNow} className={cn(buyButtonClass, "px-4.25")}>
                 <span className="trim block font-serif text-sm whitespace-nowrap">{ctaText}</span>
               </button>
             </div>

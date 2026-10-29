@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { addToBag, type BagKey } from "@/lib/bag";
 import { formatPeso } from "@/lib/utils";
 
 export type MiniItem = {
@@ -8,13 +11,14 @@ export type MiniItem = {
   price: number;
   image?: string;
   href?: string;
+  bagKey?: BagKey;
   disabled?: boolean;
 };
 
 function ItemBody({ name, price, image }: Pick<MiniItem, "name" | "price" | "image">) {
   return (
     <>
-      <div className="relative size-13.75 shrink-0 overflow-hidden rounded-sm bg-placeholder">
+      <div data-fly-source className="relative size-13.75 shrink-0 overflow-hidden rounded-sm bg-placeholder">
         {image && <Image src={image} alt="" fill sizes="55px" className="object-cover" />}
       </div>
       <div className="flex flex-col gap-3.75">
@@ -31,7 +35,7 @@ export default function MiniItemList({ items }: { items: MiniItem[] }) {
   return (
     <ul className="flex flex-col gap-3">
       {items.map((item) => (
-        <li key={item.key} className="flex items-center justify-between gap-4">
+        <li key={item.key} data-fly-scope className="flex items-center justify-between gap-4">
           {item.href ? (
             <Link href={item.href} className="group flex items-center gap-3.5">
               <ItemBody {...item} />
@@ -43,8 +47,9 @@ export default function MiniItemList({ items }: { items: MiniItem[] }) {
           )}
           <button
             type="button"
-            disabled={item.disabled}
+            disabled={item.disabled || !item.bagKey}
             aria-label={`Add ${item.name} to bag`}
+            onClick={(e) => item.bagKey && addToBag(item.bagKey, 1, e.currentTarget)}
             className="shrink-0 rounded-full border border-brand px-2.5 py-2 text-brand transition-colors hover:bg-brand hover:text-white disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-brand"
           >
             <span className="trim block font-serif text-xs">Add</span>

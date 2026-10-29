@@ -99,5 +99,6 @@ export const products: Product[] = [
     bundleIds: ["b1", "b2"],
     promoEndsAt: "2026-11-02T23:59:59+08:00",
     stock: 16,
+    options: ["A5", "Clothbound"],
   },
 ];

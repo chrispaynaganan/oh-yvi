@@ -65,6 +65,7 @@ export default function ProductDetails({ product, boughtWith }: ProductDetailsPr
                 image: item.images[0],
                 href: `/products/${item.slug}`,
                 disabled: item.status === "out_of_stock",
+                bagKey: `product:${item.slug}` as const,
               }))}
             />
           </div>
@@ -80,6 +81,7 @@ export default function ProductDetails({ product, boughtWith }: ProductDetailsPr
         maxQuantity={product.stock}
         pill={promo}
         interestKey={`product:${product.slug}`}
+        bagKey={`product:${product.slug}`}
       />
     </div>
   );

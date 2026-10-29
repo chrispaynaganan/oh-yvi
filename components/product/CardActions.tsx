@@ -5,6 +5,7 @@ import { useState } from "react";
 import { motion, useAnimate, useReducedMotion } from "motion/react";
 import { toggleInterest, useInterests, type InterestKey } from "@/lib/interests";
 import { cn } from "@/lib/utils";
+import { addToBag, type BagKey } from "@/lib/bag";
 
 type Action = "wishlist" | "add" | "share";
 
@@ -102,16 +103,19 @@ function CardIconButton({
   label,
   icon,
   disabled = false,
+  onClick,
 }: {
   label: string;
   icon: string;
   disabled?: boolean;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }) {
   return (
     <button
       type="button"
       aria-label={label}
       disabled={disabled}
+      onClick={onClick}
       className="relative size-6.75 transition-transform hover:scale-110 disabled:opacity-50 disabled:hover:scale-100"
     >
       <span className="absolute inset-[-29.63%_-44.44%_-59.26%_-44.44%]">
@@ -125,6 +129,8 @@ type CardActionsProps = {
   name: string;
   /** e.g. "product:the-good-work-journal"; makes the heart save to Interests */
   interestKey?: InterestKey;
+  /** e.g. "product:the-good-work-journal"; makes the bag button add to the bag */
+  bagKey?: BagKey;
   actions?: Action[];
   disableAdd?: boolean;
   className?: string;
@@ -133,6 +139,7 @@ type CardActionsProps = {
 export default function CardActions({
   name,
   interestKey,
+  bagKey,
   actions = ["wishlist", "add", "share"],
   disableAdd = false,
   className,
@@ -151,9 +158,10 @@ export default function CardActions({
       )}
       {actions.includes("add") && (
         <CardIconButton
-          label={`Quick add ${name} to cart`}
+          label={`Quick add ${name} to bag`}
           icon="/icons/card-bag.svg"
           disabled={disableAdd}
+          onClick={bagKey ? (e) => addToBag(bagKey, 1, e.currentTarget) : undefined}
         />
       )}
       {actions.includes("share") && (

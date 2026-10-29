@@ -33,6 +33,7 @@ export default function ProductGallery({ images, name, badges }: ProductGalleryP
 
   return (
     <div
+      data-fly-source
       onPointerMove={followPointer}
       className="relative aspect-square overflow-hidden rounded-3xl bg-placeholder"
     >

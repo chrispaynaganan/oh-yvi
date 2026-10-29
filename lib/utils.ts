@@ -7,7 +7,7 @@ const twMerge = extendTailwindMerge({
   extend: {
     theme: {
       text: [
-        "7", "8", "9", "10", "11", "13", "15", "17", "21", "25", "28", "38", "50",
+        "7", "8", "9", "10", "11", "13", "15", "17", "21", "25", "28", "29", "30", "38", "50",
         "display", "logo", "newsletter", "section", "card-title", "feature", "collection", "product",
       ],
       tracking: ["tight-1", "tight-2", "tight-3", "wide-1", "wide-2", "label", "heading"],
