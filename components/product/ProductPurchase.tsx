@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import CardActions from "@/components/product/CardActions";
 import { cn, formatPeso } from "@/lib/utils";
 import type { ProductStatus } from "@/types";
+import type { InterestKey } from "@/lib/interests";
 
 // Height of the sticky announcement bar + header on desktop
 const HEADER_HEIGHT = 179;
@@ -19,6 +20,7 @@ type ProductPurchaseProps = {
   maxQuantity?: number;
   /** Shown under the name in the sticky bar (promo timer or savings pill) */
   pill?: React.ReactNode;
+  interestKey?: InterestKey;
 };
 
 export default function ProductPurchase({
@@ -29,6 +31,7 @@ export default function ProductPurchase({
   status = "available",
   maxQuantity = 99,
   pill,
+  interestKey,
 }: ProductPurchaseProps) {
   const [quantity, setQuantity] = useState(1);
   const [showBar, setShowBar] = useState(false);
@@ -135,7 +138,7 @@ export default function ProductPurchase({
               <div className="flex flex-col items-start gap-4">
                 <div className="flex items-center gap-6.75">
                   <p className="font-serif text-card-title whitespace-nowrap text-ink">{name}</p>
-                  <CardActions name={name} actions={["wishlist", "share"]} />
+                    <CardActions name={name} interestKey={interestKey} actions={["wishlist", "share"]} />
                 </div>
                 {pill}
               </div>

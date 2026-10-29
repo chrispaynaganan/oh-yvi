@@ -98,7 +98,11 @@ async function BundleContent({ params }: { params: Params }) {
         <div className="col-span-5 col-start-8">
           <div className="flex items-center justify-between">
             {pill ?? <span />}
-            <CardActions name={bundle.name} actions={["wishlist", "share"]} />
+            <CardActions
+              name={bundle.name}
+              interestKey={`bundle:${bundle.slug}`}
+              actions={["wishlist", "share"]}
+            />
           </div>
 
           <h1 className="mt-7.75 font-serif text-product text-ink">{bundle.name}</h1>
@@ -119,6 +123,7 @@ async function BundleContent({ params }: { params: Params }) {
             unitPrice={bundle.price}
             ctaLabel="Buy this bundle"
             pill={pill}
+            interestKey={`bundle:${bundle.slug}`}
           />
         </div>
       </div>

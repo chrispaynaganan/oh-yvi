@@ -87,7 +87,7 @@ export default function Header() {
           ))}
           <div className="flex items-start gap-2">
             <IconButton href="/account" label="Account" icon="/icons/user.svg" />
-            <IconButton href="/account/wishlist" label="Wishlist" icon="/icons/heart.svg" />
+            <IconButton href="/interests" label="Interests" icon="/icons/heart.svg" />
             <IconButton href="/cart" label="Cart with 0 items" icon="/icons/cart.svg" />
           </div>
         </div>

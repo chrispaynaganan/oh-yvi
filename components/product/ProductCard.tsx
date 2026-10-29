@@ -48,7 +48,12 @@ export default function ProductCard({
           </span>
         )}
 
-        <CardActions name={name} disableAdd={isOut} className="absolute top-5 right-4.75" />
+        <CardActions
+          name={name}
+          interestKey={`product:${slug}`}
+          disableAdd={isOut}
+          className="absolute top-5 right-4.75"
+        />
 
         {images.length > 1 && (
           <div className="absolute bottom-4.25 left-1/2 flex -translate-x-1/2 gap-1.5">

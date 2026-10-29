@@ -17,7 +17,11 @@ export default function ProductDetails({ product, boughtWith }: ProductDetailsPr
     <div className="col-span-5 col-start-8">
       <div className="flex items-center justify-between">
         {promo ?? <span />}
-        <CardActions name={name} actions={["wishlist", "share"]} />
+          <CardActions
+          name={name}
+          interestKey={`product:${product.slug}`}
+          actions={["wishlist", "share"]}
+        />
       </div>
 
       <h1 className="mt-7.75 font-serif text-product text-ink">{name}</h1>
@@ -75,6 +79,7 @@ export default function ProductDetails({ product, boughtWith }: ProductDetailsPr
         status={product.status}
         maxQuantity={product.stock}
         pill={promo}
+        interestKey={`product:${product.slug}`}
       />
     </div>
   );

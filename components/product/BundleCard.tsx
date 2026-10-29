@@ -22,7 +22,11 @@ export default function BundleCard(bundle: Bundle) {
             className="object-cover"
           />
         </Link>
-        <CardActions name={name} className="absolute top-5.25 right-5.25" />
+        <CardActions
+          name={name}
+          interestKey={`bundle:${slug}`}
+          className="absolute top-5.25 right-5.25"
+        />
       </div>
 
       <div className="flex flex-1 flex-col justify-between gap-7 p-4">
