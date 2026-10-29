@@ -43,6 +43,7 @@
   --color-done: #eafadc;
   --color-done-ink: #406a1c;
   --color-done-sub: #3b7f00;
+  --color-surface-sand: #f3eae5;
   --color-star: #a68a6d;
   --color-star-empty: #e8e5e3;
 
@@ -68,6 +69,7 @@
   --text-29: 29px;
   --text-30: 30px;
   --text-32: 32px;
+  --text-34: 34px;
   --text-36: 36px;
   --text-38: 38px;
   --text-15: 15px;
@@ -221,5 +223,10 @@
   }
   h1, h2, h3, h4, h5, h6, p, label {
     text-box: trim-both cap alphabetic;
+  }
+    @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 }
