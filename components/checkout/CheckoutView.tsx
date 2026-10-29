@@ -13,6 +13,8 @@ import { createOrder } from "@/lib/orders";
 import { computeTotals, findPromo } from "@/lib/pricing";
 import { cn, formatPeso } from "@/lib/utils";
 import type { Address } from "@/types";
+import AddressEditor from "@/components/account/AddressEditor";
+import { getPrimary, useAddressBook } from "@/lib/addresses";
 
 const INPUT =
   "h-11 w-full rounded-full border border-line-dark bg-white px-4 font-mono text-sm text-ink outline-none placeholder:text-muted focus:border-brand";
@@ -43,64 +45,7 @@ function Note({ children }: { children: React.ReactNode }) {
   );
 }
 
-/* ---------- Address ---------- */
-const ADDRESS_FIELDS: { key: keyof Address; label: string; className?: string; autoComplete?: string }[] = [
-  { key: "label", label: "Label (e.g. Home)" },
-  { key: "recipient", label: "Recipient", autoComplete: "name" },
-  { key: "phone", label: "Phone", autoComplete: "tel" },
-  { key: "line1", label: "Street & barangay", className: "col-span-2", autoComplete: "street-address" },
-  { key: "city", label: "City", autoComplete: "address-level2" },
-  { key: "province", label: "Province", autoComplete: "address-level1" },
-  { key: "postalCode", label: "Postal code", autoComplete: "postal-code" },
-];
-
-function AddressEditor({
-  initial,
-  onSave,
-  onCancel,
-}: {
-  initial: Address;
-  onSave: (address: Address) => void;
-  onCancel: () => void;
-}) {
-  const [draft, setDraft] = useState(initial);
-  const [error, setError] = useState("");
-
-  function save() {
-    if (ADDRESS_FIELDS.some(({ key }) => !draft[key].trim())) {
-      setError("Please fill in every field.");
-      return;
-    }
-    onSave(draft);
-  }
-
-  return (
-    <div className="flex flex-col gap-4 rounded-2xl border border-line-soft p-4">
-      <div className="grid grid-cols-2 gap-4">
-        {ADDRESS_FIELDS.map((field) => (
-          <Field
-            key={field.key}
-            id={`address-${field.key}`}
-            label={field.label}
-            className={field.className}
-            autoComplete={field.autoComplete}
-            value={draft[field.key]}
-            onChange={(e) => setDraft({ ...draft, [field.key]: e.target.value })}
-          />
-        ))}
-      </div>
-      {error && <p className="font-mono text-xs text-promo">{error}</p>}
-      <div className="flex justify-end gap-3">
-        <button type="button" onClick={onCancel} className="rounded-full border border-line-dark px-4 py-2.5 hover:border-brand">
-          <span className="trim block font-mono text-sm text-black">Cancel</span>
-        </button>
-        <button type="button" onClick={save} className="rounded-full bg-brand px-4 py-2.5 text-white hover:opacity-90">
-          <span className="trim block font-mono text-sm">Save address</span>
-        </button>
-      </div>
-    </div>
-  );
-}
+/* ------------ Address ------------ */
 
 /* ---------- Page ---------- */
 type Row = { line: BagLine; item: CatalogItem };
@@ -109,7 +54,8 @@ export default function CheckoutView() {
   const router = useRouter();
   const bag = useBag();
   const promoCode = usePromoCode();
-  const [address, setAddress] = useState<Address>(savedAddress);
+  const addressBook = useAddressBook();
+  const [chosenAddress, setChosenAddress] = useState<Address | null>(null);
   const [editingAddress, setEditingAddress] = useState(false);
   const [method, setMethod] = useState<PaymentMethodId>("ewallet");
   const [wallet, setWallet] = useState<WalletId>("gcash");
@@ -118,6 +64,8 @@ export default function CheckoutView() {
   const [placing, setPlacing] = useState(false);
 
   if (bag === null) return <div aria-hidden className="mt-13 h-150" />;
+  // The customer's primary address is used unless they replace it here
+  const address = chosenAddress ?? (addressBook && getPrimary(addressBook)) ?? savedAddress;
 
   const rows = bag
     .filter((line) => line.selected)
@@ -237,7 +185,7 @@ export default function CheckoutView() {
                 initial={address}
                 onCancel={() => setEditingAddress(false)}
                 onSave={(next) => {
-                  setAddress(next);
+                  setChosenAddress(next);
                   setEditingAddress(false);
                 }}
               />

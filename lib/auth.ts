@@ -38,3 +38,7 @@ export async function signInWithProvider(provider: AuthProvider): Promise<AuthRe
   void provider;
   return result();
 }
+
+export async function signOut(): Promise<void> {
+  // TODO(backend): Supabase sign-out
+}
