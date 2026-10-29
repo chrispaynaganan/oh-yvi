@@ -6,10 +6,7 @@ import { store } from "@/data/store";
 
 function SpotlightArt() {
   return (
-    <div aria-hidden className="pointer-events-none absolute top-0 left-1/2 h-245.5 w-378 -translate-x-1/2">
-      <div className="absolute top-140.5 left-167 h-100 w-293">
-        <Image src="/images/errors/floor.svg" alt="" fill unoptimized />
-      </div>
+        <div aria-hidden className="pointer-events-none absolute top-1/2 left-1/2 h-245.5 w-378 -translate-x-1/2 -translate-y-1/2">
       <div className="absolute top-118.25 left-185.5 h-137.25 w-213.5">
         <Image src="/images/errors/torn-notebook.png" alt="" fill sizes="854px" className="object-cover" />
       </div>
@@ -44,10 +41,10 @@ export default function ErrorPage({
   reset: () => void;
 }) {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-night text-white">
+        <main className="relative flex min-h-screen items-center overflow-hidden bg-night text-white">
       <SpotlightArt />
 
-      <div className="relative mx-auto max-w-site px-15 pt-71.5 pb-27.5">
+            <div className="relative mx-auto w-full max-w-site px-15 py-16">
         <span className="inline-flex rounded-xl bg-error px-4 py-2.5">
           <span className="trim block font-mono text-base font-bold text-error-ink">error 500</span>
         </span>

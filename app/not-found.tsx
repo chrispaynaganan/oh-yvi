@@ -15,7 +15,7 @@ const QUICK_LINKS = [
 
 function MagnifierArt() {
   return (
-    <div aria-hidden className="pointer-events-none absolute top-0 left-1/2 h-245.5 w-378 -translate-x-1/2">
+        <div aria-hidden className="pointer-events-none absolute top-1/2 left-1/2 h-245.5 w-378 -translate-x-1/2 -translate-y-1/2">
       <div className="absolute -top-2.5 left-117.5 flex h-402.75 w-381.75 items-center justify-center">
         <div className="relative h-196.5 w-360.5 flex-none -rotate-130 overflow-hidden">
           <div className="absolute top-[-36.36%] left-[0.04%] h-[184.87%] w-[100.85%]">
@@ -29,10 +29,10 @@ function MagnifierArt() {
 
 export default function NotFound() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-white">
+        <main className="relative flex min-h-screen items-center overflow-hidden bg-white">
       <MagnifierArt />
 
-      <div className="relative mx-auto max-w-site px-15 pt-124 pb-12.75">
+            <div className="relative mx-auto w-full max-w-site px-15 py-16">
         <span className="inline-flex rounded-xl bg-error-deep px-4 py-2.5">
           <span className="trim block font-mono text-base font-bold text-white">error 404</span>
         </span>
