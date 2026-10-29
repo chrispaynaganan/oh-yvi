@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const QUICK_LINKS = [
   { title: "Track an order", text: "See where your parcel is", href: "/account/orders" },
-  { title: "Read articles", text: "Guides and updates", href: "/blog" },
+  { title: "Read articles", text: "Guides and updates", href: "/articles" },
   { title: "Visit the FAQ", text: "Answers to common questions", href: "/faqs" },
 ];
 

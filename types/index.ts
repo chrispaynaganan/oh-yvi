@@ -101,3 +101,31 @@ export type Address = {
   province: string;
   postalCode: string;
 };
+
+export type ArticleCategory = "guides" | "behind-the-scenes" | "news";
+
+/** A piece of text where some parts can be links */
+export type ArticleText = string | (string | { text: string; href: string })[];
+
+export type ArticleBlock =
+  | { type: "paragraph"; body: ArticleText }
+  | { type: "step"; title: string; body: string } // numbered automatically
+  | { type: "image"; src: string; alt: string; caption?: string }
+  | { type: "quote"; text: string };
+
+export type Article = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: ArticleCategory;
+  tags: string[];
+  image: string;
+  author: { name: string; avatar: string };
+  /** ISO date */
+  publishedAt: string;
+  readMinutes: number;
+  featured?: boolean;
+  /** Shown in the Creator's Lounge carousel */
+  lounge?: boolean;
+  blocks: ArticleBlock[];
+};

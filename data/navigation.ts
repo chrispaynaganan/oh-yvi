@@ -20,7 +20,7 @@ export const categoryNav: NavLink[] = [
 ];
 
 export const utilityNav: NavLink[] = [
-  { label: "Articles", href: "/blog" },
+  { label: "Articles", href: "/articles" },
   { label: "FAQs", href: "/faqs" },
 ];
 

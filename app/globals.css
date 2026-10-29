@@ -44,6 +44,9 @@
   --color-done-ink: #406a1c;
   --color-done-sub: #3b7f00;
   --color-surface-sand: #f3eae5;
+  --color-chip: #f0f0f0;
+  --color-chip-text: #726c66;
+  --color-overlay: rgb(95 71 71 / 0.7);
   --color-star: #a68a6d;
   --color-star-empty: #e8e5e3;
 
@@ -196,6 +199,14 @@
   @supports not selector(::-webkit-scrollbar) {
     scrollbar-width: thin;
     scrollbar-color: var(--color-placeholder) transparent;
+  }
+}
+
+/* Hides a scrollbar while keeping the area scrollable (carousels) */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 

@@ -23,7 +23,7 @@ export default function FaqsPage() {
       <FaqCenter faqs={faqs} categories={faqCategories} />
 
       <section className="mt-18.25 flex items-center justify-between rounded-full bg-surface-muted py-8 pr-6.5 pl-11.5">
-        <div className="flex w-144 flex-col gap-4 text-ink">
+        <div className="flex w-xl flex-col gap-4 text-ink">
           <h2 className="font-serif text-34">Still wondering?</h2>
           <p className="font-mono text-15">Message us and a real person will get back to you within an hour</p>
         </div>

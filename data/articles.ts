@@ -1,0 +1,185 @@
+import type { Article, ArticleCategory } from "@/types";
+
+export const articleCategories: { id: ArticleCategory; label: string }[] = [
+  { id: "guides", label: "Guides" },
+  { id: "behind-the-scenes", label: "Behind the scenes" },
+  { id: "news", label: "News" },
+];
+
+export const categoryLabel = (id: ArticleCategory) =>
+  articleCategories.find((c) => c.id === id)?.label ?? "";
+
+const chris = { name: "Chris Paynaganan", avatar: "/images/avatars/chris.png" };
+
+/** Short articles share this body until real content is written */
+const placeholderBody = (excerpt: string): Article["blocks"] => [{ type: "paragraph", body: excerpt }];
+
+export const articles: Article[] = [
+  {
+    slug: "how-every-order-gets-printed-packaged-and-shipped",
+    title: "How Every Order Gets Printed, Packaged, and Shipped",
+    excerpt: "From the moment you check out to the day it reaches your door, here’s what happens to your order.",
+    category: "behind-the-scenes",
+    tags: ["printing", "shipping"],
+    image: "/images/articles/order-hero.png",
+    author: chris,
+    publishedAt: "2026-07-13",
+    readMinutes: 5,
+    blocks: [
+      {
+        type: "paragraph",
+        body: "From the moment you check out to the day it reaches your door, here’s what happens to your order.",
+      },
+      {
+        type: "step",
+        title: "Your order comes in",
+        body: "Once your payment goes through, you’ll get a confirmation email right away. Your order then joins the print queue, which we work through in the order it was received.",
+      },
+      {
+        type: "step",
+        title: "We print it",
+        body: "After your payment is successfully processed, you’ll receive an immediate confirmation email. Your journal will then enter our meticulous printing process, where we utilize high-quality, eco-friendly inks and premium paper to ensure vibrant colors and durability. Each order is printed in the sequence it was received, guaranteeing that your unique design is crafted with care and precision, resulting in a product that stands the test of time.",
+      },
+      {
+        type: "image",
+        src: "/images/articles/order-press.png",
+        alt: "A printer feeding fresh pages through the press",
+        caption: "Fresh pages coming off the press.",
+      },
+      { type: "quote", text: "“A short quote from you about why you care about this step.”" },
+      {
+        type: "step",
+        title: "Quality check and packing",
+        body: "Before anything is packed, we check it for misprints and damage. If something isn’t right, we reprint it instead of sending it out.",
+      },
+      {
+        type: "step",
+        title: "Off to you",
+        body: "We hand your parcel to the courier and email you a tracking link. You can also see it any time under My Orders.",
+      },
+      {
+        type: "paragraph",
+        body: [
+          "Questions about your order? Our ",
+          { text: "FAQ", href: "/faqs" },
+          " covers delivery times, payments and returns.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "exploring-the-wonders-of-paper",
+    title: "Exploring the Wonders of Paper: A Comprehensive Guide to Stationery and More",
+    excerpt: "Weights, finishes and bindings explained, so you can pick paper that feels right for the way you write.",
+    category: "guides",
+    tags: ["paper", "materials"],
+    image: "/images/articles/featured-paper.png",
+    author: chris,
+    publishedAt: "2026-10-05",
+    readMinutes: 5,
+    featured: true,
+    blocks: placeholderBody("Weights, finishes and bindings explained, so you can pick paper that feels right for the way you write."),
+  },
+  {
+    slug: "how-to-care-for-your-printed-items",
+    title: "How to Care for your Printed Items so they last",
+    excerpt: "Simple habits that keep your journals, planners and prints looking new for years.",
+    category: "guides",
+    tags: ["care"],
+    image: "/images/articles/thumb-print.png",
+    author: chris,
+    publishedAt: "2026-07-13",
+    readMinutes: 5,
+    blocks: placeholderBody("Simple habits that keep your journals, planners and prints looking new for years."),
+  },
+  {
+    slug: "top-printing-techniques-for-vibrant-colors",
+    title: "Top Printing Techniques for Vibrant Colors",
+    excerpt: "A look inside the studio at how we get colors to come out rich and true.",
+    category: "behind-the-scenes",
+    tags: ["printing"],
+    image: "/images/articles/thumb-print.png",
+    author: chris,
+    publishedAt: "2026-08-05",
+    readMinutes: 7,
+    blocks: placeholderBody("A look inside the studio at how we get colors to come out rich and true."),
+  },
+  {
+    slug: "eco-friendly-materials-in-modern-printing",
+    title: "Eco-Friendly Materials in Modern Printing",
+    excerpt: "The papers and inks we choose, and why we chose them.",
+    category: "news",
+    tags: ["materials", "sustainability"],
+    image: "/images/articles/thumb-print.png",
+    author: chris,
+    publishedAt: "2026-09-12",
+    readMinutes: 6,
+    blocks: placeholderBody("The papers and inks we choose, and why we chose them."),
+  },
+  {
+    slug: "sustainable-practices-in-contemporary-printing",
+    title: "Sustainable Practices in Contemporary Printing",
+    excerpt: "Small changes in the studio that add up to less waste.",
+    category: "news",
+    tags: ["sustainability"],
+    image: "/images/articles/thumb-print.png",
+    author: chris,
+    publishedAt: "2026-10-01",
+    readMinutes: 5,
+    blocks: placeholderBody("Small changes in the studio that add up to less waste."),
+  },
+  {
+    slug: "choosing-the-right-size",
+    title: "Choosing the right size: a quick guide",
+    excerpt: "Quickly discover how to choose the perfect size for your needs with this concise guide!",
+    category: "guides",
+    tags: ["sizes"],
+    image: "/images/articles/lounge-print.png",
+    author: chris,
+    publishedAt: "2026-06-02",
+    readMinutes: 5,
+    lounge: true,
+    blocks: placeholderBody("Quickly discover how to choose the perfect size for your needs with this concise guide!"),
+  },
+  {
+    slug: "color-theory-basics",
+    title: "Color theory basics",
+    excerpt: "Learn how colors interact and how to create harmonious palettes for your designs.",
+    category: "guides",
+    tags: ["color"],
+    image: "/images/articles/related-print.png",
+    author: chris,
+    publishedAt: "2026-06-20",
+    readMinutes: 6,
+    lounge: true,
+    blocks: placeholderBody("Learn how colors interact and how to create harmonious palettes for your designs."),
+  },
+  {
+    slug: "washi-tape-ideas-for-your-planner",
+    title: "Washi tape ideas for your planner",
+    excerpt: "Five easy ways to mark dates, frame notes and add color without the clutter.",
+    category: "guides",
+    tags: ["washi", "planning"],
+    image: "/images/articles/lounge-print.png",
+    author: chris,
+    publishedAt: "2026-05-10",
+    readMinutes: 4,
+    lounge: true,
+    blocks: placeholderBody("Five easy ways to mark dates, frame notes and add color without the clutter."),
+  },
+  {
+    slug: "setting-up-a-weekly-spread",
+    title: "Setting up a weekly spread that sticks",
+    excerpt: "A calm, repeatable layout for planning your week in ten minutes.",
+    category: "guides",
+    tags: ["planning"],
+    image: "/images/articles/related-print.png",
+    author: chris,
+    publishedAt: "2026-04-22",
+    readMinutes: 6,
+    lounge: true,
+    blocks: placeholderBody("A calm, repeatable layout for planning your week in ten minutes."),
+  },
+];
+
+export const getArticle = (slug: string) => articles.find((a) => a.slug === slug);
